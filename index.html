@@ -241,6 +241,12 @@
         .footer { text-align: center; padding: 28px 20px 8px; color: var(--text-light); font-size:14px; }
         .footer a { color: var(--teal); text-decoration: none; }
         img { -webkit-user-drag: none; }
+        .locked-interaction {
+            pointer-events: none !important;
+            opacity: 0.6;
+            filter: grayscale(30%);
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body>
@@ -455,7 +461,7 @@
                 const ageLabel = '3-6 ปี';
 
                 grid.innerHTML += `
-                <div class="card ${sel?'selected':''} ${hide?'hidden':''}" id="card-${t.id}" onclick="toggleSelect(${t.id})">
+                <div class="card ${sel?'selected':''} ${hide?'hidden':''}" id="card-${t.id}" onclick="toggleSelect(event, ${t.id})">
                     <div class="check-badge" style="${sel?'opacity:1;transform:scale(1)':''}">✓</div>
                     <div class="card-img">
                         <img src="${t.img}" alt="${t.name}" loading="lazy" onerror="this.style.display='none'">
@@ -470,7 +476,11 @@
             });
         }
 
-        function toggleSelect(id) {
+        function toggleSelect(event, id) {
+            if (isPreviewMode) {
+                openZoom(event, id);
+                return;
+            }
             if (selectedIds.has(id)) { selectedIds.delete(id); }
             else { if (selectedIds.size >= maxSelect) { alert(`เลือกได้สูงสุด ${maxSelect} ธีมค่ะ 🙏`); return; } selectedIds.add(id); }
             updateCard(id); updateProgress();
@@ -515,7 +525,11 @@
             document.getElementById('coloringSection').style.display = type==='coloring'?'':'none';
             document.getElementById('handwritingSection').style.display = type==='handwriting'?'':'none';
             document.getElementById('worksheetSection').style.display = type==='worksheet'?'':'none';
-            document.getElementById('bottomBar').style.display = type==='coloring'?'':'none';
+            if (isPreviewMode) {
+                document.getElementById('bottomBar').style.display = 'none';
+            } else {
+                document.getElementById('bottomBar').style.display = type==='coloring'?'':'none';
+            }
         }
         function openZoom(e, id) {
             e.stopPropagation();
@@ -618,10 +632,18 @@
         renderGrid();
 
         // ====== AUTO SELECT VIA URL QUERY PARAMS ======
+        let isLockedMode = false;
+        let isPreviewMode = false;
         function checkUrlParams() {
             const params = new URLSearchParams(window.location.search);
             const pkg = params.get('pkg') || params.get('package');
             const age = params.get('age');
+            const preview = params.get('preview');
+
+            if (preview === 'true' || pkg === 'preview') {
+                isPreviewMode = true;
+                applyPreviewMode();
+            }
 
             if (age && ['3-6', '6-9', '9+'].includes(age)) {
                 filterAge(age);
@@ -631,12 +653,32 @@
                 });
             }
 
-            if (pkg) {
+            if (pkg && pkg !== 'preview') {
                 const size = parseInt(pkg);
                 if ([20, 40, 50].includes(size)) {
                     setPackage(size);
                     randomSelect();
+                    isLockedMode = true;
+                    applyLockMode();
                 }
+            }
+        }
+        function applyLockMode() {
+            if (isLockedMode) {
+                document.querySelectorAll('.pricing-row, .type-tabs, .filter-tabs, .package-section').forEach(el => {
+                    el.classList.add('locked-interaction');
+                });
+            }
+        }
+        function applyPreviewMode() {
+            if (isPreviewMode) {
+                document.getElementById('bottomBar').style.display = 'none';
+                document.getElementById('randomBtn').style.display = 'none';
+                const pricingRow = document.querySelector('.pricing-row');
+                if (pricingRow) pricingRow.style.display = 'none';
+                const pkgSection = document.querySelector('.package-section');
+                if (pkgSection) pkgSection.style.display = 'none';
+                document.body.style.paddingBottom = '40px';
             }
         }
         checkUrlParams();
