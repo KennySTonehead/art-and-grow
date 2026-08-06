@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art & Grow สีสันปั้นสมอง — เลือกธีมสมุดระบายสี</title>
+    <meta name="description" content="เลือกธีมสมุดระบายสีเสริมพัฒนาการ Art & Grow สีสันปั้นสมอง — ระบายสี เรียนรู้ เติบโต">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --coral: #FF6B6B; --coral-light: #ff8a8a;
+            --teal: #4ECDC4; --teal-dark: #3db8b0;
+            --yellow: #FFE66D; --purple: #A78BFA;
+            --pink: #F472B6; --green: #34D399; --green-dark: #10B981;
+            --orange: #FB923C; --cream: #FFF8F0;
+            --text: #2D3436; --text-light: #636E72;
+            --shadow: rgba(0,0,0,0.08); --radius: 16px;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Sarabun', 'Nunito', sans-serif;
+            background: var(--cream); color: var(--text);
+            padding-bottom: 200px;
+            user-select: none; -webkit-user-select: none;
+        }
+
+        /* === HERO === */
+        .hero {
+            background: linear-gradient(135deg, #FFE0E0 0%, #FFE8CC 25%, #FFFBE0 50%, #D4F5F0 75%, #E0E8FF 100%);
+            padding: 30px 20px 28px; text-align: center;
+            position: relative; overflow: hidden;
+        }
+        .hero::before {
+            content: '🎨 ✏️ 🖍️ ⭐ 🌈 📚 🧩 🎯';
+            position: absolute; top: 6px; left: 0; right: 0;
+            font-size:16px; letter-spacing: 10px; opacity: 0.25;
+        }
+        .hero-logo { font-family: 'Fredoka One', cursive; font-size:36px; background: linear-gradient(135deg, var(--coral), var(--teal)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero-thai { font-size:20px; font-weight: 700; color: var(--coral); margin: 2px 0 10px; }
+        .hero-desc { font-size:17px; color: var(--text-light); line-height: 1.6; max-width: 480px; margin: 0 auto 16px; }
+
+        /* Pricing Cards */
+        .pricing-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 14px; }
+        .price-card {
+            background: rgba(255,255,255,0.88); backdrop-filter: blur(10px);
+            border-radius: 14px; padding: 14px 16px; min-width: 160px; flex: 1; max-width: 220px;
+            box-shadow: 0 3px 12px var(--shadow); text-align: center;
+            border: 2px solid transparent; transition: all 0.3s; cursor: pointer;
+        }
+        .price-card:hover { transform: translateY(-2px); }
+        .price-card.active { border-color: var(--teal); box-shadow: 0 4px 18px rgba(78,205,196,0.25); }
+        .price-age { font-weight: 800; font-size:17px; margin-bottom: 6px; }
+        .price-age .age-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 4px; }
+        .price-age .dot-36 { background: #F87171; } .price-age .dot-68 { background: #38BDF8; } .price-age .dot-9 { background: #4ADE80; }
+        .price-row { display: flex; justify-content: space-between; align-items: center; font-size:16px; padding: 3px 0; }
+        .price-row .price { font-weight: 800; color: var(--coral); font-size:19px; }
+        .price-row .best { background: var(--yellow); padding: 1px 6px; border-radius: 8px; font-size:12px; font-weight: 700; }
+
+        .btn-contact {
+            display: inline-block; margin-top: 10px; padding: 11px 28px;
+            background: linear-gradient(135deg, var(--coral), var(--orange)); color: #fff;
+            text-decoration: none; border-radius: 30px; font-weight: 700; font-size:17px;
+            box-shadow: 0 4px 15px rgba(255,107,107,0.3); transition: all 0.3s;
+        }
+        .btn-contact:hover { transform: translateY(-2px); }
+
+        .random-btn {
+            display: inline-block; margin-top: 5px; padding: 10px 24px;
+            background: linear-gradient(135deg, var(--purple), var(--pink)); color: #fff;
+            border: none; border-radius: 30px; font-weight: 700; font-size:16px;
+            font-family: 'Sarabun', sans-serif; cursor: pointer; transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(167, 139, 250, 0.3);
+        }
+        .random-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(167, 139, 250, 0.4); }
+
+        /* Package selection */
+        .package-section {
+            display: flex; align-items: center; justify-content: center; gap: 12px;
+            margin: 10px auto 14px; flex-wrap: wrap; max-width: 600px;
+        }
+        .package-label { font-size:17px; font-weight: 700; color: var(--text-light); }
+        .package-options { display: flex; gap: 6px; background: rgba(0,0,0,0.05); padding: 4px; border-radius: 30px; }
+        .package-option {
+            padding: 6px 16px; border-radius: 20px; font-size:16px; font-weight: 700;
+            cursor: pointer; transition: all 0.2s;
+        }
+        .package-option.active {
+            background: var(--coral); color: #fff; box-shadow: 0 2px 8px rgba(255,107,107,0.25);
+        }
+
+        /* === PRODUCT TYPE TABS === */
+        .type-section { max-width: 1100px; margin: 0 auto; padding: 18px 15px 0; }
+        .type-tabs { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+        .type-tab {
+            padding: 10px 20px; border-radius: 30px; border: 2px solid #ddd; background: #fff;
+            cursor: pointer; font-size:17px; font-weight: 700; transition: all 0.3s;
+            display: flex; align-items: center; gap: 6px;
+        }
+        .type-tab:hover { border-color: var(--coral); }
+        .type-tab.active { background: linear-gradient(135deg, var(--coral), var(--orange)); color: #fff; border-color: var(--coral); }
+        .type-tab .badge-soon { background: var(--yellow); color: #333; padding: 2px 8px; border-radius: 10px; font-size:12px; font-weight: 800; }
+
+        /* === AGE FILTER === */
+        .filter-section { max-width: 1100px; margin: 0 auto; padding: 10px 15px 0; }
+        .filter-title { text-align: center; font-family: 'Fredoka One', cursive; font-size:24px; color: var(--text); margin-bottom: 12px; }
+        .filter-title span { color: var(--coral); }
+        .filter-tabs { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+        .filter-tab {
+            padding: 8px 18px; border-radius: 30px; border: 2px solid #ddd; background: #fff;
+            cursor: pointer; font-size:16px; font-weight: 600; transition: all 0.3s;
+            display: flex; align-items: center; gap: 5px;
+        }
+        .filter-tab:hover { border-color: var(--teal); }
+        .filter-tab.active { background: linear-gradient(135deg, var(--teal), var(--teal-dark)); color: #fff; border-color: var(--teal); }
+        .filter-tab .count { background: rgba(0,0,0,0.08); padding: 2px 7px; border-radius: 20px; font-size:13px; }
+        .filter-tab.active .count { background: rgba(255,255,255,0.3); }
+
+        /* === GRID === */
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 15px; }
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+        @media (min-width: 600px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (min-width: 900px) { .grid { grid-template-columns: repeat(4, 1fr); gap: 16px; } }
+
+        /* === CARD === */
+        .card {
+            border-radius: var(--radius); background: #fff; overflow: hidden;
+            box-shadow: 0 2px 10px var(--shadow); transition: all 0.3s; position: relative; cursor: pointer;
+        }
+        .card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.12); }
+        .card.selected { border: 3px solid var(--green); box-shadow: 0 0 0 3px rgba(52,211,153,0.2), 0 8px 25px rgba(52,211,153,0.15); }
+        .card.selected .check-badge { opacity: 1; transform: scale(1); }
+        .card.hidden { display: none; }
+
+        .check-badge {
+            position: absolute; top: 10px; left: 10px; width: 32px; height: 32px;
+            background: var(--green); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size:22px; font-weight: 800; z-index: 5;
+            opacity: 0; transform: scale(0.5);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 2px 8px rgba(52,211,153,0.4);
+        }
+        .card-img { aspect-ratio: 4/5; position: relative; overflow: hidden; background: #f0f0f0; }
+        .card-img img {
+            width: 100%; height: 100%; object-fit: cover; display: block;
+            -webkit-user-drag: none; -webkit-touch-callout: none; pointer-events: none;
+        }
+        /* SAMPLE Watermark */
+        .card-img::after {
+            content: 'SAMPLE';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-family: 'Fredoka One', cursive;
+            font-size:38px;
+            color: rgba(255, 107, 107, 0.25);
+            letter-spacing: 6px;
+            pointer-events: none;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+            white-space: nowrap;
+            z-index: 3;
+        }
+
+        .age-badge {
+            position: absolute; top: 10px; right: 10px; padding: 4px 10px;
+            border-radius: 20px; font-size:13px; font-weight: 700; z-index: 5;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        .age-badge.age-3-6 { background: #FECACA; color: #DC2626; }
+        .age-badge.age-6-8 { background: #BAE6FD; color: #0284C7; }
+        .age-badge.age-9 { background: #D9F99D; color: #4D7C0F; }
+
+        .zoom-btn {
+            position: absolute; bottom: 10px; right: 10px; width: 32px; height: 32px;
+            background: rgba(255,255,255,0.9); backdrop-filter: blur(5px); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; z-index: 5; box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            transition: all 0.2s; font-size:17px;
+        }
+        .zoom-btn:hover { transform: scale(1.15); background: #fff; }
+
+        .card-info { padding: 10px 12px; text-align: center; }
+        .card-title { font-size:16px; font-weight: 700; color: var(--text); line-height: 1.3; }
+        .card-subtitle { font-size:13px; color: var(--text-light); margin-top: 1px; }
+
+        /* === COMING SOON === */
+        .coming-soon { max-width: 1100px; margin: 0 auto; padding: 40px 15px; text-align: center; }
+        .coming-soon-icon { font-size:77px; margin-bottom: 12px; }
+        .coming-soon-title { font-family: 'Fredoka One', cursive; font-size:29px; color: var(--text); margin-bottom: 8px; }
+        .coming-soon-text { font-size:18px; color: var(--text-light); line-height: 1.7; max-width: 500px; margin: 0 auto 20px; }
+        .coming-soon-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+        .cs-tag { padding: 8px 16px; background: #fff; border-radius: 20px; font-size:16px; font-weight: 600; box-shadow: 0 2px 8px var(--shadow); }
+
+        /* === BOTTOM BAR === */
+        .bottom-bar {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: rgba(255,255,255,0.97); backdrop-filter: blur(20px);
+            box-shadow: 0 -4px 30px rgba(0,0,0,0.1); z-index: 100; padding: 14px 20px;
+        }
+        .bottom-inner { max-width: 600px; margin: 0 auto; }
+        .progress-section { margin-bottom: 10px; }
+        .progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+        .progress-label { font-size:17px; font-weight: 700; }
+        .progress-remaining { font-size:14px; color: var(--text-light); }
+        .progress-count { font-size:22px; font-weight: 800; color: var(--coral); transition: all 0.3s; }
+        .progress-count.ready { color: var(--green); transform: scale(1.1); }
+        .progress-bar-bg { width: 100%; height: 8px; background: #E5E7EB; border-radius: 10px; overflow: hidden; }
+        .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--coral), var(--orange), var(--yellow)); border-radius: 10px; width: 0%; transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .progress-bar-fill.ready { background: linear-gradient(90deg, var(--green), var(--teal)); }
+        .order-row { display: flex; gap: 8px; align-items: center; }
+        .order-input { flex: 1; padding: 11px 14px; border: 2px solid #E5E7EB; border-radius: 12px; font-size:16px; font-family: 'Sarabun', sans-serif; outline: none; transition: all 0.3s; }
+        .order-input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(78,205,196,0.15); }
+        .order-btn { padding: 11px 24px; background: linear-gradient(135deg, var(--green), var(--green-dark)); color: #fff; border: none; border-radius: 12px; font-size:17px; font-weight: 700; font-family: 'Sarabun', sans-serif; cursor: pointer; transition: all 0.3s; white-space: nowrap; box-shadow: 0 4px 15px rgba(16,185,129,0.3); }
+        .order-btn:hover { transform: translateY(-2px); }
+        .order-btn:disabled { background: #9CA3AF; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        /* === MODALS === */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); backdrop-filter: blur(5px); z-index: 1000; justify-content: center; align-items: center; cursor: pointer; }
+        .modal-overlay.show { display: flex; }
+        .modal-content { position: relative; max-width: 92%; max-height: 88vh; }
+        .modal-content img { max-width: 100%; max-height: 88vh; border-radius: 12px; box-shadow: 0 0 40px rgba(0,0,0,0.5); -webkit-user-drag: none; -webkit-touch-callout: none; pointer-events: none; display: block; }
+        .modal-watermark {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-family: 'Fredoka One', cursive; font-size:77px;
+            color: rgba(255, 107, 107, 0.3); letter-spacing: 10px;
+            pointer-events: none; text-shadow: 0 0 20px rgba(255,255,255,0.3);
+            white-space: nowrap; z-index: 1001;
+        }
+        .modal-close { position: absolute; top: 20px; right: 20px; width: 40px; height: 40px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size:26px; cursor: pointer; z-index: 1002; }
+
+        .success-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); z-index: 2000; justify-content: center; align-items: center; }
+        .success-modal.show { display: flex; }
+        .success-box { background: #fff; border-radius: 24px; padding: 32px 24px; max-width: 380px; width: 90%; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.3); animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .success-icon { font-size:67px; margin-bottom: 10px; }
+        .success-title { font-family: 'Fredoka One', cursive; font-size:26px; color: var(--green); margin-bottom: 6px; }
+        .success-text { font-size:17px; color: var(--text-light); line-height: 1.7; margin-bottom: 16px; }
+        .success-btn { padding: 11px 28px; background: linear-gradient(135deg, var(--teal), var(--teal-dark)); color: #fff; border: none; border-radius: 12px; font-size:17px; font-weight: 700; cursor: pointer; font-family: 'Sarabun', sans-serif; }
+
+        @keyframes popIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+        .footer { text-align: center; padding: 28px 20px 8px; color: var(--text-light); font-size:14px; }
+        .footer a { color: var(--teal); text-decoration: none; }
+        img { -webkit-user-drag: none; }
+    </style>
+</head>
+<body>
+    <script>document.addEventListener('contextmenu', e => e.preventDefault());</script>
+
+    <!-- HERO -->
+    <header class="hero">
+        <div class="hero-logo">Art & Grow</div>
+        <div class="hero-thai">สีสันปั้นสมอง</div>
+        <p class="hero-desc">สมุดระบายสีเสริมพัฒนาการ + คำศัพท์อังกฤษ + กิจกรรมฝึกสมอง + QR ฟังเสียง<br>📥 ไฟล์ PDF ปริ้นได้ไม่จำกัด!</p>
+        <div class="pricing-row">
+            <div class="price-card active" onclick="selectAgeGroup('3-6')">
+                <div class="price-age"><span class="age-dot dot-36"></span> 3-6 ปี (สมุดระบายสี)</div>
+                <div class="price-row"><span>20 ธีม</span> <span class="price">159 ฿</span></div>
+                <div class="price-row"><span>ครบ 50 ธีม</span> <span class="price">199 ฿</span> <span class="best">คุ้มสุด!</span></div>
+            </div>
+            <div class="price-card" onclick="selectAgeGroup('6-9')">
+                <div class="price-age"><span class="age-dot dot-68"></span> 6-9 ปี (Young Artist)</div>
+                <div class="price-row"><span>20 ธีม</span> <span class="price">159 ฿</span></div>
+                <div class="price-row"><span>ครบ 40 ธีม</span> <span class="price">199 ฿</span> <span class="best">คุ้มสุด!</span></div>
+            </div>
+            <div class="price-card" onclick="selectAgeGroup('9+')">
+                <div class="price-age"><span class="age-dot dot-9"></span> 9+ ปี (Art Lab)</div>
+                <div class="price-row"><span>20 ธีม</span> <span class="price">169 ฿</span></div>
+                <div class="price-row"><span>ครบ 40 ธีม</span> <span class="price">199 ฿</span> <span class="best">คุ้มสุด!</span></div>
+            </div>
+        </div>
+        <a href="https://www.facebook.com/profile.php?id=61592752235563" class="btn-contact" target="_blank">💬 สั่งซื้อที่เพจ Facebook</a>
+    </header>
+
+    <!-- PRODUCT TYPE TABS -->
+    <section class="type-section">
+        <div class="type-tabs">
+            <div class="type-tab active" onclick="switchType('coloring')">🎨 สมุดระบายสี</div>
+            <div class="type-tab" onclick="switchType('handwriting')">✏️ สมุดคัดลายมือ <span class="badge-soon">เร็วๆ นี้</span></div>
+            <div class="type-tab" onclick="switchType('worksheet')">📝 ใบงาน/แบบฝึกหัด <span class="badge-soon">เร็วๆ นี้</span></div>
+        </div>
+    </section>
+
+    <!-- COLORING SECTION -->
+    <div id="coloringSection">
+        <section class="filter-section">
+            <h1 class="filter-title">🎨 เลือก<span>ธีม</span>ที่ต้องการ</h1>
+            <div class="filter-tabs" id="filterTabs">
+                <div class="filter-tab active" onclick="filterAge('3-6')" data-age="3-6">👶 3-6 ปี (สมุดระบายสี) <span class="count" id="count-3-6">0</span></div>
+                <div class="filter-tab" onclick="filterAge('6-9')" data-age="6-9">🧒 6-9 ปี (Young Artist) <span class="count" id="count-6-9">0</span></div>
+                <div class="filter-tab" onclick="filterAge('9+')" data-age="9+">🧑 9+ ปี (Art Lab) <span class="count" id="count-9">0</span></div>
+            </div>
+            <div class="package-section">
+                <span class="package-label">🎁 แพ็กเกจของคุณ:</span>
+                <div class="package-options">
+                    <!-- จะถูกเรนเดอร์ไดนามิกโดย JavaScript -->
+                </div>
+            </div>
+            <div style="text-align: center; margin-bottom: 20px;">
+                <button class="random-btn" id="randomBtn" onclick="randomSelect()">🎲 สุ่มเลือก 20 ธีม (จัดธีมฮิตให้ก่อน)</button>
+            </div>
+        </section>
+        <div class="container"><div class="grid" id="productGrid"></div></div>
+    </div>
+
+    <!-- HANDWRITING COMING SOON -->
+    <div id="handwritingSection" style="display:none;">
+        <div class="coming-soon">
+            <div class="coming-soon-icon">✏️</div>
+            <div class="coming-soon-title">สมุดคัดลายมือ — Coming Soon!</div>
+            <div class="coming-soon-text">ฝึกเขียนตามเส้นประ ทั้งภาษาไทยและภาษาอังกฤษ<br>เหมาะสำหรับเด็กอนุบาล - ป.3</div>
+            <div class="coming-soon-tags">
+                <span class="cs-tag">🇹🇭 พยัญชนะไทย ก-ฮ</span>
+                <span class="cs-tag">🇹🇭 สระ + วรรณยุกต์</span>
+                <span class="cs-tag">🇹🇭 ตัวเลขไทย ๑-๑๐</span>
+                <span class="cs-tag">🇬🇧 Alphabet A-Z</span>
+                <span class="cs-tag">🇬🇧 Numbers 1-20</span>
+                <span class="cs-tag">🇬🇧 Basic Words</span>
+            </div>
+            <br>
+            <a href="https://www.facebook.com/profile.php?id=61592752235563" class="btn-contact" target="_blank">💬 กดติดตามเพจ รอรับแจ้งเตือน!</a>
+        </div>
+    </div>
+
+    <!-- WORKSHEET COMING SOON -->
+    <div id="worksheetSection" style="display:none;">
+        <div class="coming-soon">
+            <div class="coming-soon-icon">📝</div>
+            <div class="coming-soon-title">ใบงาน / แบบฝึกหัด — Coming Soon!</div>
+            <div class="coming-soon-text">สื่อการสอนสำหรับคุณครูและผู้ปกครอง<br>ใช้ได้ทั้งในโรงเรียนและที่บ้าน</div>
+            <div class="coming-soon-tags">
+                <span class="cs-tag">📐 คณิตศาสตร์</span>
+                <span class="cs-tag">🔤 ภาษาอังกฤษ</span>
+                <span class="cs-tag">🇹🇭 ภาษาไทย</span>
+                <span class="cs-tag">🧪 วิทยาศาสตร์</span>
+                <span class="cs-tag">🧩 ฝึกสมอง / Logic</span>
+                <span class="cs-tag">🎨 ศิลปะ</span>
+            </div>
+            <br>
+            <a href="https://www.facebook.com/profile.php?id=61592752235563" class="btn-contact" target="_blank">💬 กดติดตามเพจ รอรับแจ้งเตือน!</a>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>© 2026 Art & Grow สีสันปั้นสมอง — Color. Learn. Grow. 🌱</p>
+        <p><a href="https://www.facebook.com/profile.php?id=61592752235563" target="_blank">Facebook Page</a></p>
+    </div>
+
+    <!-- BOTTOM BAR -->
+    <div class="bottom-bar" id="bottomBar">
+        <div class="bottom-inner">
+            <div class="progress-section">
+                <div class="progress-header">
+                    <span class="progress-label">📚 เลือกธีม <span class="progress-remaining" id="remainText">(เลือกได้อีก 20 ธีม)</span></span>
+                    <span class="progress-count" id="progressCount">0 / 20</span>
+                </div>
+                <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
+            </div>
+            <div class="order-row">
+                <input type="text" class="order-input" id="customerName" placeholder="ชื่อเฟซบุ๊กที่ชำระเงินแล้ว...">
+                <button class="order-btn" onclick="submitOrder()">📤 ส่งรายการ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ZOOM MODAL -->
+    <div class="modal-overlay" id="zoomModal" onclick="closeZoom()">
+        <div class="modal-close" onclick="closeZoom()">✕</div>
+        <div class="modal-content">
+            <img id="zoomImg" src="">
+            <div class="modal-watermark">SAMPLE</div>
+        </div>
+    </div>
+
+    <!-- SUCCESS MODAL -->
+    <div class="success-modal" id="successModal">
+        <div class="success-box">
+            <div class="success-icon">🎉</div>
+            <div class="success-title">ส่งข้อมูลสำเร็จ!</div>
+            <div class="success-text">ระบบกำลังจัดเตรียมไฟล์ของคุณ<br>(ใช้เวลาประมาณ 5-10 นาที)<br><br>📱 รบกวนทักกลับไปที่<br><strong>เพจ Facebook</strong> แจ้งแอดมินว่า<br><strong>"เลือกธีมครบแล้ว"</strong> ได้เลยค่ะ! 🙏</div>
+            <button class="success-btn" onclick="closeSuccess()">เข้าใจแล้ว ✨</button>
+        </div>
+    </div>
+
+    <script>
+        // ====== THEME DATA (ใช้ภาพจริงจาก PDF) ======
+        const themes = [
+            { id:1, name:'ตัวอักษร ABC', en:'Alphabet Abc', age:'3-6', img:'pics/alphabet_abc.jpg', bestSeller:true },
+            { id:2, name:'สัตว์น่ารัก', en:'Animals', age:'3-6', img:'pics/animals.jpg', bestSeller:true },
+            { id:3, name:'สัตว์ขั้วโลก', en:'Arctic And Polar Animals', age:'3-6', img:'pics/arctic_and_polar_animals.jpg', bestSeller:false },
+            { id:4, name:'ลูกสัตว์ตัวน้อย', en:'Baby Animals', age:'3-6', img:'pics/baby_animals.jpg', bestSeller:true },
+            { id:5, name:'ก่อนนอนและแดนฝัน', en:'Bedtime And Dreams', age:'3-6', img:'pics/bedtime_and_dreams.jpg', bestSeller:false },
+            { id:6, name:'นกรอบโลก', en:'Birds Of The World', age:'3-6', img:'pics/birds_of_the_world.jpg', bestSeller:false },
+            { id:7, name:'แมลงตัวจิ๋ว', en:'Bugs And Insects', age:'3-6', img:'pics/bugs_and_insects.jpg', bestSeller:false },
+            { id:8, name:'แคมป์ปิ้งกลางป่า', en:'Camping And Outdoors', age:'3-6', img:'pics/camping_and_outdoors.jpg', bestSeller:false },
+            { id:9, name:'ปราสาทอัศวิน', en:'Castles And Knights', age:'3-6', img:'pics/castles_and_knights.jpg', bestSeller:false },
+            { id:10, name:'คริสต์มาส & หน้าหนาว', en:'Christmas And Winter', age:'3-6', img:'pics/christmas_and_winter.jpg', bestSeller:false },
+            { id:11, name:'ละครสัตว์และงานคาร์นิวัล', en:'Circus And Carnival', age:'3-6', img:'pics/circus_and_carnival.jpg', bestSeller:false },
+            { id:12, name:'อาชีพในฝัน', en:'Community Helpers', age:'3-6', img:'pics/community_helpers.jpg', bestSeller:false },
+            { id:13, name:'ไดโนเสาร์', en:'Dinosaurs', age:'3-6', img:'pics/dinosaurs.jpg', bestSeller:true },
+            { id:14, name:'มังกร & สัตว์ในตำนาน', en:'Dragons And Mythical Creatures', age:'3-6', img:'pics/dragons_and_mythical_creatures.jpg', bestSeller:false },
+            { id:15, name:'อารมณ์ & ความรู้สึก', en:'Emotions And Feelings', age:'3-6', img:'pics/emotions_and_feelings.jpg', bestSeller:false },
+            { id:16, name:'เทพนิยาย', en:'Fairy Tales', age:'3-6', img:'pics/fairy_tales.jpg', bestSeller:false },
+            { id:17, name:'ชีวิตในฟาร์ม', en:'Farm Life', age:'3-6', img:'pics/farm_life.jpg', bestSeller:false },
+            { id:18, name:'ดอกไม้ & สวน', en:'Flowers And Garden', age:'3-6', img:'pics/flowers_and_garden.jpg', bestSeller:false },
+            { id:19, name:'อาหาร & ขนม', en:'Food And Sweets', age:'3-6', img:'pics/food_and_sweets.jpg', bestSeller:false },
+            { id:20, name:'ทำสวนและปลูกต้นไม้', en:'Garden And Planting', age:'3-6', img:'pics/garden_and_planting.jpg', bestSeller:false },
+            { id:21, name:'ฮาโลวีน', en:'Halloween Fun', age:'3-6', img:'pics/halloween_fun.jpg', bestSeller:false },
+            { id:22, name:'ป่าดงดิบ', en:'Jungle Adventure', age:'3-6', img:'pics/jungle_adventure.jpg', bestSeller:false },
+            { id:23, name:'แผนที่และภูมิศาสตร์', en:'Maps And Geography', age:'3-6', img:'pics/maps_and_geography.jpg', bestSeller:false },
+            { id:24, name:'นางเงือก & มหาสมุทร', en:'Mermaids And Ocean Fantasy', age:'3-6', img:'pics/mermaids_and_ocean_fantasy.jpg', bestSeller:false },
+            { id:25, name:'เครื่องดนตรี', en:'Musical Instruments', age:'3-6', img:'pics/musical_instruments.jpg', bestSeller:false },
+            { id:26, name:'อวัยวะร่างกาย', en:'My Body Parts', age:'3-6', img:'pics/my_body_parts.jpg', bestSeller:false },
+            { id:27, name:'ธรรมชาติ & วัฏจักร', en:'Nature And Life Cycles', age:'3-6', img:'pics/nature_and_life_cycles.jpg', bestSeller:false },
+            { id:28, name:'ตัวเลข & การนับ', en:'Numbers And Counting', age:'3-6', img:'pics/numbers_and_counting.jpg', bestSeller:true },
+            { id:29, name:'โลกใต้ทะเล', en:'Ocean And Sea Life', age:'3-6', img:'pics/ocean_and_sea_life.jpg', bestSeller:false },
+            { id:30, name:'โจรสลัด & สมบัติ', en:'Pirates And Treasure', age:'3-6', img:'pics/pirates_and_treasure.jpg', bestSeller:false },
+            { id:31, name:'สัตว์ป่าฝน', en:'Rainforest Animals', age:'3-6', img:'pics/rainforest_animals.jpg', bestSeller:false },
+            { id:32, name:'หุ่นยนต์ & เครื่องจักร', en:'Robots And Machines', age:'3-6', img:'pics/robots_and_machines.jpg', bestSeller:false },
+            { id:33, name:'ซาฟารี', en:'Safari Animals', age:'3-6', img:'pics/safari_animals.jpg', bestSeller:false },
+            { id:34, name:'ฤดูกาลทั้งสี่', en:'Seasons Of The Year', age:'3-6', img:'pics/seasons_of_the_year.jpg', bestSeller:false },
+            { id:35, name:'รูปทรง & สีสัน', en:'Shapes And Colors', age:'3-6', img:'pics/shapes_and_colors.jpg', bestSeller:true },
+            { id:36, name:'ผจญภัยอวกาศ', en:'Space Adventure', age:'3-6', img:'pics/space_adventure.jpg', bestSeller:true },
+            { id:37, name:'ซูเปอร์ฮีโร่', en:'Superheroes', age:'3-6', img:'pics/superheroes.jpg', bestSeller:false },
+            { id:38, name:'อักษรไทย ก-ฮ', en:'Thai Alphabet', age:'3-6', img:'pics/thai_alphabet.jpg', bestSeller:true },
+            { id:39, name:'ตัวละครในวรรณคดีไทย', en:'Thai Literature Characters', age:'3-6', img:'pics/thai_literature_characters.jpg', bestSeller:false },
+            { id:40, name:'การละเล่นไทยเดิม', en:'Thai Traditional Games', age:'3-6', img:'pics/thai_traditional_games.jpg', bestSeller:false },
+            { id:41, name:'ของเล่น & สนามเด็กเล่น', en:'Toys And Playtime', age:'3-6', img:'pics/toys_and_playtime.jpg', bestSeller:false },
+            { id:42, name:'รถไฟและทางรถไฟ', en:'Trains And Railways', age:'3-6', img:'pics/trains_and_railways.jpg', bestSeller:false },
+            { id:43, name:'เขตก่อสร้างแสนสนุก', en:'Under Construction', age:'3-6', img:'pics/under_construction.jpg', bestSeller:false },
+            { id:44, name:'ส่องโลกใต้กล้องจุลทรรศน์', en:'Under The Microscope', age:'3-6', img:'pics/under_the_microscope.jpg', bestSeller:false },
+            { id:45, name:'ยูนิคอร์น & เวทมนตร์', en:'Unicorns And Magic', age:'3-6', img:'pics/unicorns_and_magic.jpg', bestSeller:true },
+            { id:46, name:'ยานพาหนะ', en:'Vehicles And Transportation', age:'3-6', img:'pics/vehicles_and_transportation.jpg', bestSeller:true },
+            { id:47, name:'สภาพอากาศและท้องฟ้า', en:'Weather And Sky', age:'3-6', img:'pics/weather_and_sky.jpg', bestSeller:false },
+            { id:48, name:'สัตว์ในป่าใหญ่', en:'Woodland Forest Animals', age:'3-6', img:'pics/woodland_forest_animals.jpg', bestSeller:false },
+            { id:49, name:'การเต้น & วัฒนธรรมโลก', en:'World Dances And Cultures', age:'3-6', img:'pics/world_dances_and_cultures.jpg', bestSeller:false },
+            { id:50, name:'กีฬาโลก', en:'World Sports', age:'3-6', img:'pics/world_sports.jpg', bestSeller:false },
+        ];
+
+        let maxSelect = 20;
+        let selectedIds = new Set();
+        let currentFilter = '3-6';
+        let currentType = 'coloring';
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbznwlAtwIrf0DXo7SMFLH1Z4V3l57bsJg0v6qo-eJlmNxaYKglN8hK1zlA-3rUe4d14/exec';
+
+        // ====== RENDER ======
+        function renderGrid() {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = '';
+            themes.forEach(t => {
+                const sel = selectedIds.has(t.id);
+                const hide = currentFilter !== 'all' && t.age !== currentFilter;
+
+                // สำหรับช่วงสมุดระบายสีแรกนี้ ทุกเล่มมีช่วงอายุเดียวคือ 3-6 ปี
+                const ageCls = 'age-3-6';
+                const ageLabel = '3-6 ปี';
+
+                grid.innerHTML += `
+                <div class="card ${sel?'selected':''} ${hide?'hidden':''}" id="card-${t.id}" onclick="toggleSelect(${t.id})">
+                    <div class="check-badge" style="${sel?'opacity:1;transform:scale(1)':''}">✓</div>
+                    <div class="card-img">
+                        <img src="${t.img}" alt="${t.name}" loading="lazy" onerror="this.style.display='none'">
+                        <span class="age-badge ${ageCls}">${ageLabel}</span>
+                        <div class="zoom-btn" onclick="openZoom(event,${t.id})">🔍</div>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-title">${t.name}</div>
+                        <div class="card-subtitle">${t.en}</div>
+                    </div>
+                </div>`;
+            });
+        }
+
+        function toggleSelect(id) {
+            if (selectedIds.has(id)) { selectedIds.delete(id); }
+            else { if (selectedIds.size >= maxSelect) { alert(`เลือกได้สูงสุด ${maxSelect} ธีมค่ะ 🙏`); return; } selectedIds.add(id); }
+            updateCard(id); updateProgress();
+        }
+        function updateCard(id) {
+            const card = document.getElementById(`card-${id}`);
+            const badge = card.querySelector('.check-badge');
+            if (selectedIds.has(id)) { card.classList.add('selected'); badge.style.opacity='1'; badge.style.transform='scale(1)'; }
+            else { card.classList.remove('selected'); badge.style.opacity='0'; badge.style.transform='scale(0.5)'; }
+        }
+        function updateProgress() {
+            const n = selectedIds.size, pct = (n/maxSelect)*100, ok = n===maxSelect;
+            const remaining = maxSelect - n;
+            document.getElementById('progressCount').textContent = `${n} / ${maxSelect}`;
+            document.getElementById('progressCount').className = `progress-count ${ok?'ready':''}`;
+            document.getElementById('remainText').textContent = ok ? '✅ ครบแล้ว!' : `(เลือกได้อีก ${remaining} ธีม)`;
+            const bar = document.getElementById('progressBar');
+            bar.style.width = `${Math.min(pct, 100)}%`;
+            bar.className = `progress-bar-fill ${ok?'ready':''}`;
+        }
+        function filterAge(age) {
+            currentFilter = age;
+            document.querySelectorAll('.filter-tab').forEach(t => t.classList.toggle('active', t.dataset.age === age));
+            document.querySelectorAll('.card').forEach(c => {
+                const cid = parseInt(c.id.replace('card-',''));
+                const th = themes.find(t => t.id === cid);
+                c.classList.toggle('hidden', th.age !== age);
+            });
+            renderPackageOptions();
+        }
+        function selectAgeGroup(age) {
+            document.querySelectorAll('.price-card').forEach(c => c.classList.remove('active'));
+            // ค้นหาการ์ดราคาโดยดูจากข้อความ
+            document.querySelectorAll('.price-card').forEach(c => {
+                if (c.innerHTML.includes(age)) c.classList.add('active');
+            });
+            filterAge(age);
+        }
+        function switchType(type) {
+            currentType = type;
+            document.querySelectorAll('.type-tab').forEach((t,i) => t.classList.toggle('active', i === ['coloring','handwriting','worksheet'].indexOf(type)));
+            document.getElementById('coloringSection').style.display = type==='coloring'?'':'none';
+            document.getElementById('handwritingSection').style.display = type==='handwriting'?'':'none';
+            document.getElementById('worksheetSection').style.display = type==='worksheet'?'':'none';
+            document.getElementById('bottomBar').style.display = type==='coloring'?'':'none';
+        }
+        function openZoom(e, id) {
+            e.stopPropagation();
+            const t = themes.find(th => th.id === id);
+            document.getElementById('zoomImg').src = t.img;
+            document.getElementById('zoomModal').classList.add('show');
+        }
+        function closeZoom() { document.getElementById('zoomModal').classList.remove('show'); }
+        function submitOrder() {
+            const name = document.getElementById('customerName').value.trim();
+            if (selectedIds.size !== maxSelect) { alert(`กรุณาเลือกธีมให้ครบ ${maxSelect} ธีมค่ะ\n(ตอนนี้เลือกไป ${selectedIds.size} ธีม)`); return; }
+            if (!name) { alert('กรุณากรอกชื่อ Facebook ที่ใช้สั่งซื้อก่อนค่ะ 🙏'); return; }
+            const items = Array.from(selectedIds).sort((a,b)=>a-b).map(id => { const t=themes.find(th=>th.id===id); return `${t.name} (${t.en})`; }).join(', ');
+            if (SCRIPT_URL !== 'YOUR_GOOGLE_APPS_SCRIPT_URL') {
+                fetch(SCRIPT_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'text/plain'}, body:JSON.stringify({name,items,count:selectedIds.size,timestamp:new Date().toLocaleString('th-TH')}) });
+            }
+            document.getElementById('successModal').classList.add('show');
+            selectedIds.clear();
+            document.getElementById('customerName').value = '';
+            document.querySelectorAll('.card').forEach(c => { c.classList.remove('selected'); const b=c.querySelector('.check-badge'); b.style.opacity='0'; b.style.transform='scale(0.5)'; });
+            updateProgress();
+        }
+        function closeSuccess() { document.getElementById('successModal').classList.remove('show'); window.scrollTo({top:0,behavior:'smooth'}); }
+
+        // ====== SET PACKAGE ======
+        function setPackage(size) {
+            maxSelect = size;
+            document.querySelectorAll('.package-option').forEach(opt => {
+                const optSize = parseInt(opt.textContent);
+                opt.classList.toggle('active', optSize === size);
+            });
+            document.getElementById('randomBtn').textContent = `🎲 สุ่มเลือก ${maxSelect} ธีม (จัดธีมฮิตให้ก่อน)`;
+
+            // หากมีธีมที่เลือกไว้เกินกว่าแพ็กเกจใหม่ ให้ตัดออก
+            if (selectedIds.size > maxSelect) {
+                const arr = Array.from(selectedIds);
+                selectedIds = new Set(arr.slice(0, maxSelect));
+                themes.forEach(t => updateCard(t.id));
+            }
+            updateProgress();
+        }
+
+        // ====== RENDER PACKAGE OPTIONS (สลับตามอายุและสินค้าที่มี) ======
+        function renderPackageOptions() {
+            const pkgOptionsDiv = document.querySelector('.package-options');
+            let html = '';
+            if (currentFilter === '3-6') {
+                if (maxSelect === 40) maxSelect = 20; // 3-6 ปี ไม่มีแพ็กเกจ 40 ธีม
+                html += `<div class="package-option ${maxSelect===20?'active':''}" onclick="setPackage(20)">20 ธีม</div>`;
+                html += `<div class="package-option ${maxSelect===50?'active':''}" onclick="setPackage(50)">50 ธีม</div>`;
+            } else {
+                if (maxSelect === 50) maxSelect = 20; // 6-9 และ 9+ ปี ไม่มีแพ็กเกจ 50 ธีม
+                html += `<div class="package-option ${maxSelect===20?'active':''}" onclick="setPackage(20)">20 ธีม</div>`;
+                html += `<div class="package-option ${maxSelect===40?'active':''}" onclick="setPackage(40)">40 ธีม</div>`;
+            }
+            pkgOptionsDiv.innerHTML = html;
+            document.getElementById('randomBtn').textContent = `🎲 สุ่มเลือก ${maxSelect} ธีม (จัดธีมฮิตให้ก่อน)`;
+        }
+
+        // ====== RANDOM SELECT ======
+        function randomSelect() {
+            const candidates = themes.filter(t => t.age === currentFilter);
+            if (candidates.length === 0) return;
+
+            selectedIds.clear();
+            const bests = candidates.filter(t => t.bestSeller);
+            const regs = candidates.filter(t => !t.bestSeller);
+
+            // Fisher-Yates Shuffle
+            const shuffle = (array) => {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+                return array;
+            };
+
+            const combined = [...shuffle(bests), ...shuffle(regs)];
+            const selectCount = Math.min(maxSelect, combined.length);
+            for (let i = 0; i < selectCount; i++) {
+                selectedIds.add(combined[i].id);
+            }
+
+            themes.forEach(t => updateCard(t.id));
+            updateProgress();
+        }
+
+        // ====== INIT COUNTS ======
+        function initCounts() {
+            document.getElementById('count-3-6').textContent = themes.filter(t => t.age === '3-6').length;
+            document.getElementById('count-6-9').textContent = themes.filter(t => t.age === '6-9').length;
+            document.getElementById('count-9').textContent = themes.filter(t => t.age === '9+').length;
+        }
+
+        document.addEventListener('keydown', e => { if(e.key==='Escape'){closeZoom();closeSuccess();} });
+
+        initCounts();
+        renderPackageOptions();
+        filterAge('3-6'); // เริ่มต้นที่ 3-6 ปี
+        renderGrid();
+
+        // ====== AUTO SELECT VIA URL QUERY PARAMS ======
+        function checkUrlParams() {
+            const params = new URLSearchParams(window.location.search);
+            const pkg = params.get('pkg') || params.get('package');
+            const age = params.get('age');
+
+            if (age && ['3-6', '6-9', '9+'].includes(age)) {
+                filterAge(age);
+                document.querySelectorAll('.price-card').forEach(c => c.classList.remove('active'));
+                document.querySelectorAll('.price-card').forEach(c => {
+                    if (c.innerHTML.includes(age)) c.classList.add('active');
+                });
+            }
+
+            if (pkg) {
+                const size = parseInt(pkg);
+                if ([20, 40, 50].includes(size)) {
+                    setPackage(size);
+                    randomSelect();
+                }
+            }
+        }
+        checkUrlParams();
+    </script>
+</body>
+</html>
