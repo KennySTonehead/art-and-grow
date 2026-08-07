@@ -314,6 +314,23 @@
             transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             pointer-events: none;
         }
+        .card-watermark {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) rotate(-25deg);
+            font-size: 16px;
+            font-weight: 800;
+            color: rgba(0, 0, 0, 0.2);
+            border: 2px solid rgba(0, 0, 0, 0.2);
+            padding: 2px 8px;
+            border-radius: 6px;
+            pointer-events: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: 'Fredoka One', sans-serif;
+            z-index: 4;
+            user-select: none;
+        }
         .zoom-btn {
             position: absolute;
             bottom: 8px; left: 8px;
@@ -767,6 +784,7 @@
                         ${t.bestSeller ? '<span class="best-seller-badge">🔥 HIT</span>' : ''}
                         <span class="age-badge age-3-6">${t.age} ปี</span>
                         <div class="check-badge" style="opacity: ${isSel ? '1' : '0'}; transform: ${isSel ? 'scale(1)' : 'scale(0.5)'};">✓</div>
+                        ${isPreviewMode ? '<div class="card-watermark">SAMPLE</div>' : ''}
                         <div class="zoom-btn" onclick="openZoom(event, ${t.id})">🔍 พรีวิวเปิดดู</div>
                     </div>
                     <div class="card-info">
@@ -1042,6 +1060,7 @@
             // หากไม่มีพารามิเตอร์ pkg ระบุสิทธิ์การสั่งซื้อ บังคับเข้าสู่โหมดพรีวิวโดยอัตโนมัติเพื่อความปลอดภัย
             if (!pkg || pkg === 'preview' || (preview && ['true', '3-6', '6-9', '9+', '20', '50'].includes(preview))) {
                 isPreviewMode = true;
+                renderGrid(); // รีเรนเดอร์เพื่อให้วาด ลายน้ำ (Watermark)
             }
 
             // 2. กรองข้อมูลสินค้าตามประเภท (Type/Tab) เช่น coloring, handwriting
