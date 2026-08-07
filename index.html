@@ -2,46 +2,61 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Art & Grow สีสันปั้นสมอง — เลือกธีมสมุดระบายสี</title>
-    <meta name="description" content="เลือกธีมสมุดระบายสีเสริมพัฒนาการ Art & Grow สีสันปั้นสมอง — ระบายสี เรียนรู้ เติบโต">
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Art & Grow — สีสันปั้นสมอง</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&family=Sarabun:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --coral: #FF6B6B; --coral-light: #ff8a8a;
-            --teal: #4ECDC4; --teal-dark: #3db8b0;
-            --yellow: #FFE66D; --purple: #A78BFA;
-            --pink: #F472B6; --green: #34D399; --green-dark: #10B981;
-            --orange: #FB923C; --cream: #FFF8F0;
-            --text: #2D3436; --text-light: #636E72;
-            --shadow: rgba(0,0,0,0.08); --radius: 16px;
+            --cream: #FFFDF9;
+            --text: #2D3436;
+            --text-light: #636E72;
+            --coral: #FF6B6B;
+            --teal: #4ECDC4;
+            --teal-dark: #2F9E97;
+            --yellow: #FFE66D;
+            --purple: #8B5CF6;
+            --green: #10B981;
+            --orange: #F97316;
+            --shadow: rgba(0, 0, 0, 0.04);
+            --white: #FFFFFF;
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
         body {
             font-family: 'Sarabun', 'Nunito', sans-serif;
-            background: var(--cream); color: var(--text);
+            background: var(--cream);
+            color: var(--text);
             padding-bottom: 200px;
             user-select: none; -webkit-user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
         /* === HERO === */
         .hero {
             background: linear-gradient(135deg, #FFE0E0 0%, #FFE8CC 25%, #FFFBE0 50%, #D4F5F0 75%, #E0E8FF 100%);
-            padding: 30px 20px 28px; text-align: center;
-            position: relative; overflow: hidden;
+            padding: 24px 16px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(0,0,0,0.03);
         }
         .hero::before {
             content: '🎨 ✏️ 🖍️ ⭐ 🌈 📚 🧩 🎯';
-            position: absolute; top: 6px; left: 0; right: 0;
-            font-size:16px; letter-spacing: 10px; opacity: 0.25;
+            position: absolute;
+            top: 6px; left: 0; right: 0;
+            font-size: 14px;
+            letter-spacing: 12px;
+            opacity: 0.2;
+            text-align: center;
         }
         .hero-banner-container {
             max-width: 760px;
-            margin: 10px auto 20px;
+            margin: 12px auto 16px;
             border-radius: 18px;
             overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-            border: 3px solid rgba(255,255,255,0.6);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+            border: 3px solid rgba(255,255,255,0.7);
         }
         .hero-banner-img {
             width: 100%;
@@ -50,205 +65,449 @@
         }
 
         /* Pricing Cards */
-        .pricing-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 14px; }
+        .pricing-row {
+            display: flex; gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 14px;
+        }
         .price-card {
-            background: rgba(255,255,255,0.88); backdrop-filter: blur(10px);
-            border-radius: 14px; padding: 14px 16px; min-width: 160px; flex: 1; max-width: 220px;
-            box-shadow: 0 3px 12px var(--shadow); text-align: center;
-            border: 2px solid transparent; transition: all 0.3s; cursor: pointer;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 14px;
+            padding: 12px 14px;
+            min-width: 150px;
+            flex: 1;
+            max-width: 210px;
+            box-shadow: 0 3px 10px var(--shadow);
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            cursor: pointer;
         }
         .price-card:hover { transform: translateY(-2px); }
-        .price-card.active { border-color: var(--teal); box-shadow: 0 4px 18px rgba(78,205,196,0.25); }
-        .price-age { font-weight: 800; font-size:17px; margin-bottom: 6px; }
-        .price-age .age-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 4px; }
-        .price-age .dot-36 { background: #F87171; } .price-age .dot-68 { background: #38BDF8; } .price-age .dot-9 { background: #4ADE80; }
-        .price-row { display: flex; justify-content: space-between; align-items: center; font-size:16px; padding: 3px 0; }
-        .price-row .price { font-weight: 800; color: var(--coral); font-size:19px; }
-        .price-row .best { background: var(--yellow); padding: 1px 6px; border-radius: 8px; font-size:12px; font-weight: 700; }
+        .price-card.active {
+            border-color: var(--teal);
+            box-shadow: 0 4px 15px rgba(78,205,196,0.2);
+        }
+        .price-age { font-weight: 800; font-size: 16px; margin-bottom: 4px; }
+        .price-age .age-dot {
+            display: inline-block;
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            margin-right: 4px;
+        }
+        .price-age .dot-36 { background: var(--coral); }
+        .price-age .dot-68 { background: #38BDF8; }
+        .price-age .dot-9 { background: var(--green); }
+        
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            padding: 2px 0;
+        }
+        .price-row .price { font-weight: 800; color: var(--coral); font-size: 17px; }
+        .price-row .best {
+            background: var(--yellow);
+            padding: 1px 5px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+        }
 
         .btn-contact {
-            display: inline-block; margin-top: 10px; padding: 11px 28px;
-            background: linear-gradient(135deg, var(--coral), var(--orange)); color: #fff;
-            text-decoration: none; border-radius: 30px; font-weight: 700; font-size:17px;
-            box-shadow: 0 4px 15px rgba(255,107,107,0.3); transition: all 0.3s;
+            display: inline-block;
+            margin-top: 8px;
+            padding: 10px 24px;
+            background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 15px;
+            box-shadow: 0 4px 12px rgba(78,205,196,0.25);
+            transition: all 0.3s;
         }
-        .btn-contact:hover { transform: translateY(-2px); }
+        .btn-contact:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(78,205,196,0.35); }
 
-        .random-btn {
-            display: inline-block; margin-top: 5px; padding: 10px 24px;
-            background: linear-gradient(135deg, var(--purple), var(--pink)); color: #fff;
-            border: none; border-radius: 30px; font-weight: 700; font-size:16px;
-            font-family: 'Sarabun', sans-serif; cursor: pointer; transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(167, 139, 250, 0.3);
+        /* === DYNAMIC BANNER === */
+        .mode-title-banner {
+            text-align: center;
+            margin: 24px auto 8px;
+            max-width: 600px;
+            padding: 0 20px;
         }
-        .random-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(167, 139, 250, 0.4); }
-
-        /* Package selection */
-        .package-section {
-            display: flex; align-items: center; justify-content: center; gap: 12px;
-            margin: 10px auto 14px; flex-wrap: wrap; max-width: 600px;
+        .mode-title-main {
+            font-family: 'Fredoka One', Sarabun, sans-serif;
+            font-weight: 800;
+            font-size: 32px;
+            color: var(--teal-dark);
+            margin-bottom: 4px;
         }
-        .package-label { font-size:17px; font-weight: 700; color: var(--text-light); }
-        .package-options { display: flex; gap: 6px; background: rgba(0,0,0,0.05); padding: 4px; border-radius: 30px; }
-        .package-option {
-            padding: 6px 16px; border-radius: 20px; font-size:16px; font-weight: 700;
-            cursor: pointer; transition: all 0.2s;
-        }
-        .package-option.active {
-            background: var(--coral); color: #fff; box-shadow: 0 2px 8px rgba(255,107,107,0.25);
+        .mode-title-sub {
+            font-family: 'Fredoka One', cursive;
+            font-size: 17px;
+            color: var(--text-light);
         }
 
         /* === PRODUCT TYPE TABS === */
-        .type-section { max-width: 1100px; margin: 0 auto; padding: 18px 15px 0; }
-        .type-tabs { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+        .type-section {
+            max-width: 900px;
+            margin: 16px auto;
+            padding: 0 16px;
+        }
+        .type-tabs {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            border-bottom: 2px solid rgba(0,0,0,0.05);
+            padding-bottom: 8px;
+        }
         .type-tab {
-            padding: 10px 20px; border-radius: 30px; border: 2px solid #ddd; background: #fff;
-            cursor: pointer; font-size:17px; font-weight: 700; transition: all 0.3s;
-            display: flex; align-items: center; gap: 6px;
+            padding: 8px 18px;
+            border-radius: 20px 20px 0 0;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: var(--text-light);
+            border-bottom: 3px solid transparent;
+            position: relative;
         }
-        .type-tab:hover { border-color: var(--coral); }
-        .type-tab.active { background: linear-gradient(135deg, var(--coral), var(--orange)); color: #fff; border-color: var(--coral); }
-        .type-tab .badge-soon { background: var(--yellow); color: #333; padding: 2px 8px; border-radius: 10px; font-size:12px; font-weight: 800; }
-
-        /* === AGE FILTER === */
-        .filter-section { max-width: 1100px; margin: 0 auto; padding: 10px 15px 0; }
-        .filter-title { text-align: center; font-family: 'Fredoka One', cursive; font-size:24px; color: var(--text); margin-bottom: 12px; }
-        .filter-title span { color: var(--coral); }
-        .filter-tabs { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
-        .filter-tab {
-            padding: 8px 18px; border-radius: 30px; border: 2px solid #ddd; background: #fff;
-            cursor: pointer; font-size:16px; font-weight: 600; transition: all 0.3s;
-            display: flex; align-items: center; gap: 5px;
+        .type-tab.active {
+            color: var(--teal-dark);
+            border-bottom-color: var(--teal);
         }
-        .filter-tab:hover { border-color: var(--teal); }
-        .filter-tab.active { background: linear-gradient(135deg, var(--teal), var(--teal-dark)); color: #fff; border-color: var(--teal); }
-        .filter-tab .count { background: rgba(0,0,0,0.08); padding: 2px 7px; border-radius: 20px; font-size:13px; }
-        .filter-tab.active .count { background: rgba(255,255,255,0.3); }
+        .badge-soon {
+            font-size: 10px;
+            background: #DFE6E9;
+            color: var(--text-light);
+            padding: 1px 5px;
+            border-radius: 6px;
+            margin-left: 4px;
+            vertical-align: middle;
+        }
 
-        /* === GRID === */
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 15px; }
-        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
-        @media (min-width: 600px) { .grid { grid-template-columns: repeat(3, 1fr); } }
-        @media (min-width: 900px) { .grid { grid-template-columns: repeat(4, 1fr); gap: 16px; } }
+        /* === FILTER SECTION === */
+        .filter-section {
+            max-width: 800px;
+            margin: 0 auto 20px;
+            padding: 0 16px;
+        }
+        .package-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        .package-label { font-weight: 700; font-size: 15px; color: var(--text-light); }
+        .package-options { display: flex; gap: 8px; }
+        .package-option {
+            padding: 6px 16px;
+            border-radius: 12px;
+            background: var(--white);
+            border: 2px solid rgba(0,0,0,0.06);
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .package-option.active {
+            background: var(--teal);
+            color: var(--white);
+            border-color: var(--teal);
+        }
+        .random-btn {
+            display: inline-block;
+            padding: 10px 24px;
+            background: linear-gradient(135deg, var(--coral), #EF4444);
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(255,107,107,0.2);
+            transition: all 0.3s;
+            font-family: 'Sarabun', sans-serif;
+        }
+        .random-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(255,107,107,0.3); }
 
-        /* === CARD === */
+        /* === GRID SYSTEM === */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+            gap: 16px;
+            margin-top: 10px;
+        }
+
+        /* Card Layout */
         .card {
-            border-radius: var(--radius); background: #fff; overflow: hidden;
-            box-shadow: 0 2px 10px var(--shadow); transition: all 0.3s; position: relative; cursor: pointer;
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px var(--shadow);
+            border: 2px solid transparent;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: pointer;
+            position: relative;
         }
-        .card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.12); }
-        .card.selected { border: 3px solid var(--green); box-shadow: 0 0 0 3px rgba(52,211,153,0.2), 0 8px 25px rgba(52,211,153,0.15); }
-        .card.selected .check-badge { opacity: 1; transform: scale(1); }
-        .card.hidden { display: none; }
+        .card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
+        .card.selected { border-color: var(--teal); }
 
-        .check-badge {
-            position: absolute; top: 10px; left: 10px; width: 32px; height: 32px;
-            background: var(--green); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            color: #fff; font-size:22px; font-weight: 800; z-index: 5;
-            opacity: 0; transform: scale(0.5);
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: 0 2px 8px rgba(52,211,153,0.4);
+        .card-img {
+            aspect-ratio: 1;
+            position: relative;
+            background: #fdfdfd;
+            overflow: hidden;
         }
-        .card-img { aspect-ratio: 4/5; position: relative; overflow: hidden; background: #f0f0f0; }
         .card-img img {
-            width: 100%; height: 100%; object-fit: cover; display: block;
-            -webkit-user-drag: none; -webkit-touch-callout: none; pointer-events: none;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
         }
-        /* SAMPLE Watermark */
-        .card-img::after {
-            content: 'SAMPLE';
+        .card:hover .card-img img { transform: scale(1.04); }
+
+        .best-seller-badge {
+            position: absolute;
+            top: 8px; left: 8px;
+            background: var(--yellow);
+            color: #7A5F00;
+            padding: 2px 8px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 800;
+            box-shadow: 0 2px 6px rgba(255,230,109,0.4);
+        }
+        .age-badge {
+            position: absolute;
+            top: 8px; right: 8px;
+            background: rgba(45,52,54,0.7);
+            backdrop-filter: blur(4px);
+            color: var(--white);
+            padding: 2px 7px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+        .check-badge {
+            position: absolute;
+            bottom: 8px; right: 8px;
+            width: 24px; height: 24px;
+            background: var(--teal);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 14px;
+            box-shadow: 0 2px 6px rgba(78,205,196,0.4);
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+        }
+        .zoom-btn {
+            position: absolute;
+            bottom: 8px; left: 8px;
+            background: rgba(255,255,255,0.9);
+            color: var(--text);
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+            transition: background 0.2s;
+        }
+        .zoom-btn:hover { background: var(--white); }
+
+        .card-info { padding: 12px; }
+        .card-title { font-size: 15px; font-weight: 800; color: var(--text); margin-bottom: 2px; }
+        .card-subtitle { font-size: 12px; color: var(--text-light); font-family: 'Nunito', sans-serif; font-weight: 600; }
+
+        /* === FLOATING BOTTOM BAR (Paid Mode Only) === */
+        .bottom-bar {
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(0,0,0,0.06);
+            box-shadow: 0 -8px 24px rgba(0,0,0,0.05);
+            padding: 16px 20px;
+            z-index: 900;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+        .progress-bar-container { width: 100%; max-width: 600px; }
+        .progress-text-row { display: flex; justify-content: space-between; font-weight: 800; font-size: 15px; margin-bottom: 6px; }
+        .progress-bar-bg { width: 100%; height: 8px; background: rgba(0,0,0,0.06); border-radius: 4px; overflow: hidden; }
+        .progress-bar-fill { width: 0%; height: 100%; background: var(--teal); border-radius: 4px; transition: width 0.3s ease; }
+        
+        .input-container {
+            display: flex; gap: 8px;
+            width: 100%; max-width: 600px;
+        }
+        .input-facebook {
+            flex: 1;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 2px solid rgba(0,0,0,0.06);
+            font-size: 15px;
+            font-weight: 600;
+            background: var(--cream);
+            transition: border-color 0.2s;
+            font-family: 'Sarabun', sans-serif;
+        }
+        .input-facebook:focus { border-color: var(--teal); }
+        .btn-submit {
+            padding: 12px 28px;
+            background: linear-gradient(135deg, var(--green), #059669);
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(16,185,129,0.25);
+            transition: all 0.3s;
+            font-family: 'Sarabun', sans-serif;
+        }
+        .btn-submit:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(16,185,129,0.35); }
+        .btn-submit:disabled {
+            background: #B2BEC3;
+            color: #DFE6E9;
+            box-shadow: none;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* === ZOOM PREVIEW MODAL === */
+        .zoom-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .zoom-modal.show { display: flex; }
+        .zoom-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .zoom-img {
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            object-fit: contain;
+            border: 4px solid var(--white);
+        }
+        .modal-close {
+            position: absolute;
+            top: -48px; right: 0;
+            width: 36px; height: 36px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 24px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .modal-close:hover { background: rgba(255,255,255,0.3); }
+
+        /* Watermark over Sample preview */
+        .watermark-overlay {
             position: absolute;
             top: 50%; left: 50%;
-            transform: translate(-50%, -50%) rotate(-45deg);
-            font-family: 'Fredoka One', cursive;
-            font-size:38px;
-            color: rgba(255, 107, 107, 0.25);
-            letter-spacing: 6px;
+            transform: translate(-50%, -50%) rotate(-30deg);
+            font-size: 48px;
+            font-weight: 800;
+            color: rgba(255,255,255,0.35);
+            border: 4px solid rgba(255,255,255,0.35);
+            padding: 8px 24px;
+            border-radius: 12px;
             pointer-events: none;
-            text-shadow: 0 0 10px rgba(255,255,255,0.5);
-            white-space: nowrap;
-            z-index: 3;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-family: 'Fredoka One', sans-serif;
         }
 
-        .age-badge {
-            position: absolute; top: 10px; right: 10px; padding: 4px 10px;
-            border-radius: 20px; font-size:13px; font-weight: 700; z-index: 5;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        /* === SUCCESS POPUP MODAL === */
+        .success-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
         }
-        .age-badge.age-3-6 { background: #FECACA; color: #DC2626; }
-        .age-badge.age-6-8 { background: #BAE6FD; color: #0284C7; }
-        .age-badge.age-9 { background: #D9F99D; color: #4D7C0F; }
-
-        .zoom-btn {
-            position: absolute; bottom: 10px; right: 10px; width: 32px; height: 32px;
-            background: rgba(255,255,255,0.9); backdrop-filter: blur(5px); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; z-index: 5; box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-            transition: all 0.2s; font-size:17px;
-        }
-        .zoom-btn:hover { transform: scale(1.15); background: #fff; }
-
-        .card-info { padding: 10px 12px; text-align: center; }
-        .card-title { font-size:16px; font-weight: 700; color: var(--text); line-height: 1.3; }
-        .card-subtitle { font-size:13px; color: var(--text-light); margin-top: 1px; }
-
-        /* === COMING SOON === */
-        .coming-soon { max-width: 1100px; margin: 0 auto; padding: 40px 15px; text-align: center; }
-        .coming-soon-icon { font-size:77px; margin-bottom: 12px; }
-        .coming-soon-title { font-family: 'Fredoka One', cursive; font-size:29px; color: var(--text); margin-bottom: 8px; }
-        .coming-soon-text { font-size:18px; color: var(--text-light); line-height: 1.7; max-width: 500px; margin: 0 auto 20px; }
-        .coming-soon-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
-        .cs-tag { padding: 8px 16px; background: #fff; border-radius: 20px; font-size:16px; font-weight: 600; box-shadow: 0 2px 8px var(--shadow); }
-
-        /* === BOTTOM BAR === */
-        .bottom-bar {
-            position: fixed; bottom: 0; left: 0; width: 100%;
-            background: rgba(255,255,255,0.97); backdrop-filter: blur(20px);
-            box-shadow: 0 -4px 30px rgba(0,0,0,0.1); z-index: 100; padding: 14px 20px;
-        }
-        .bottom-inner { max-width: 600px; margin: 0 auto; }
-        .progress-section { margin-bottom: 10px; }
-        .progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
-        .progress-label { font-size:17px; font-weight: 700; }
-        .progress-remaining { font-size:14px; color: var(--text-light); }
-        .progress-count { font-size:22px; font-weight: 800; color: var(--coral); transition: all 0.3s; }
-        .progress-count.ready { color: var(--green); transform: scale(1.1); }
-        .progress-bar-bg { width: 100%; height: 8px; background: #E5E7EB; border-radius: 10px; overflow: hidden; }
-        .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--coral), var(--orange), var(--yellow)); border-radius: 10px; width: 0%; transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
-        .progress-bar-fill.ready { background: linear-gradient(90deg, var(--green), var(--teal)); }
-        .order-row { display: flex; gap: 8px; align-items: center; }
-        .order-input { flex: 1; padding: 11px 14px; border: 2px solid #E5E7EB; border-radius: 12px; font-size:16px; font-family: 'Sarabun', sans-serif; outline: none; transition: all 0.3s; }
-        .order-input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(78,205,196,0.15); }
-        .order-btn { padding: 11px 24px; background: linear-gradient(135deg, var(--green), var(--green-dark)); color: #fff; border: none; border-radius: 12px; font-size:17px; font-weight: 700; font-family: 'Sarabun', sans-serif; cursor: pointer; transition: all 0.3s; white-space: nowrap; box-shadow: 0 4px 15px rgba(16,185,129,0.3); }
-        .order-btn:hover { transform: translateY(-2px); }
-        .order-btn:disabled { background: #9CA3AF; cursor: not-allowed; transform: none; box-shadow: none; }
-
-        /* === MODALS === */
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); backdrop-filter: blur(5px); z-index: 1000; justify-content: center; align-items: center; cursor: pointer; }
-        .modal-overlay.show { display: flex; }
-        .modal-content { position: relative; max-width: 92%; max-height: 88vh; }
-        .modal-content img { max-width: 100%; max-height: 88vh; border-radius: 12px; box-shadow: 0 0 40px rgba(0,0,0,0.5); -webkit-user-drag: none; -webkit-touch-callout: none; pointer-events: none; display: block; }
-        .modal-watermark {
-            position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%) rotate(-45deg);
-            font-family: 'Fredoka One', cursive; font-size:77px;
-            color: rgba(255, 107, 107, 0.3); letter-spacing: 10px;
-            pointer-events: none; text-shadow: 0 0 20px rgba(255,255,255,0.3);
-            white-space: nowrap; z-index: 1001;
-        }
-        .modal-close { position: absolute; top: 20px; right: 20px; width: 40px; height: 40px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size:26px; cursor: pointer; z-index: 1002; }
-
-        .success-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); z-index: 2000; justify-content: center; align-items: center; }
         .success-modal.show { display: flex; }
-        .success-box { background: #fff; border-radius: 24px; padding: 32px 24px; max-width: 380px; width: 90%; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.3); animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
-        .success-icon { font-size:67px; margin-bottom: 10px; }
-        .success-title { font-family: 'Fredoka One', cursive; font-size:26px; color: var(--green); margin-bottom: 6px; }
-        .success-text { font-size:17px; color: var(--text-light); line-height: 1.7; margin-bottom: 16px; }
-        .success-btn { padding: 11px 28px; background: linear-gradient(135deg, var(--teal), var(--teal-dark)); color: #fff; border: none; border-radius: 12px; font-size:17px; font-weight: 700; cursor: pointer; font-family: 'Sarabun', sans-serif; }
+        .success-box {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 32px 24px;
+            max-width: 380px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .success-icon { font-size: 64px; margin-bottom: 8px; }
+        .success-title { font-family: 'Fredoka One', cursive; font-size: 26px; color: var(--green); margin-bottom: 6px; }
+        .success-text { font-size: 16px; color: var(--text-light); line-height: 1.6; margin-bottom: 20px; }
+        .success-btn {
+            padding: 10px 28px;
+            background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            font-family: 'Sarabun', sans-serif;
+        }
 
-        @keyframes popIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
-        .footer { text-align: center; padding: 28px 20px 8px; color: var(--text-light); font-size:14px; }
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.85); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* === COMING SOON / SUBSECTIONS === */
+        .coming-soon {
+            text-align: center;
+            padding: 60px 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .coming-soon-icon { font-size: 54px; margin-bottom: 12px; }
+        .coming-soon-title { font-size: 22px; font-weight: 800; color: var(--teal-dark); margin-bottom: 6px; }
+        .coming-soon-text { font-size: 15px; color: var(--text-light); line-height: 1.6; margin-bottom: 20px; }
+        .coming-soon-tags { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+        .cs-tag { background: rgba(0,0,0,0.04); padding: 4px 12px; border-radius: 12px; font-size: 13px; font-weight: 600; color: var(--text-light); }
+
+        .footer { text-align: center; padding: 30px 20px 10px; color: var(--text-light); font-size: 13px; }
         .footer a { color: var(--teal); text-decoration: none; }
         img { -webkit-user-drag: none; }
         .locked-interaction {
@@ -256,25 +515,6 @@
             opacity: 0.6;
             filter: grayscale(30%);
             cursor: not-allowed;
-        }
-        /* Dynamic Mode Title Banner */
-        .mode-title-banner {
-            text-align: center;
-            margin: 22px auto 10px;
-            max-width: 600px;
-            padding: 10px 20px;
-        }
-        .mode-title-main {
-            font-family: 'Fredoka One', Sarabun, sans-serif;
-            font-weight: 800;
-            font-size: 32px;
-            color: var(--teal-dark);
-            margin-bottom: 6px;
-        }
-        .mode-title-sub {
-            font-family: 'Fredoka One', cursive;
-            font-size: 18px;
-            color: var(--text-light);
         }
     </style>
 </head>
@@ -321,26 +561,26 @@
     <!-- COLORING SECTION -->
     <div id="coloringSection">
         <section class="filter-section">
-            <h1 class="filter-title">🎨 เลือก<span>ธีม</span>ที่ต้องการ</h1>
-
             <div class="package-section">
                 <span class="package-label">🎁 แพ็กเกจของคุณ:</span>
                 <div class="package-options">
-                    <!-- จะถูกเรนเดอร์ไดนามิกโดย JavaScript -->
+                    <!-- JavaScript dynamically renders -->
                 </div>
             </div>
             <div style="text-align: center; margin-bottom: 20px;">
                 <button class="random-btn" id="randomBtn" onclick="randomSelect()">🎲 สุ่มเลือก 20 ธีม (จัดธีมฮิตให้ก่อน)</button>
             </div>
         </section>
-        <div class="container"><div class="grid" id="productGrid"></div></div>
+        <div class="container">
+            <div class="grid" id="productGrid"></div>
+        </div>
     </div>
 
     <!-- HANDWRITING SECTION -->
     <div id="handwritingSection" style="display:none; padding: 40px 15px;">
         <div class="container">
-            <h1 class="filter-title" style="margin-bottom:10px;">✏️ สมุดคัดลายมือปฐมวัย<span>เส้นประลอยตัว</span></h1>
-            <p class="section-subtitle" style="margin-bottom:40px;">แบบเรียนหัดคัดพยัญชนะและตัวเลขสำหรับน้องๆ 3-6 ปี สัดส่วนถูกต้อง แยกตัวชัดเจนพร้อมภาพประกอบ</p>
+            <h1 class="filter-title" style="text-align:center; font-size:24px; margin-bottom:10px; font-weight:800; color:var(--teal-dark);">✏️ สมุดคัดลายมือปฐมวัย<span>เส้นประลอยตัว</span></h1>
+            <p class="section-subtitle" style="text-align:center; font-size:14px; color:var(--text-light); margin-bottom:40px;">แบบเรียนหัดคัดพยัญชนะและตัวเลขสำหรับน้องๆ 3-6 ปี สัดส่วนถูกต้อง แยกตัวชัดเจนพร้อมภาพประกอบ</p>
             
             <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; max-width: 800px; margin: 0 auto;">
                 <!-- Thai Book Card -->
@@ -380,7 +620,7 @@
         </div>
     </div>
 
-    <!-- WORKSHEET COMING SOON -->
+    <!-- WORKSHEET SECTION -->
     <div id="worksheetSection" style="display:none;">
         <div class="coming-soon">
             <div class="coming-soon-icon">📝</div>
@@ -394,54 +634,53 @@
                 <span class="cs-tag">🧩 ฝึกสมอง / Logic</span>
                 <span class="cs-tag">🎨 ศิลปะ</span>
             </div>
-            <br>
-            <a href="https://www.facebook.com/profile.php?id=61592752235563" class="btn-contact" target="_blank">💬 กดติดตามเพจ รอรับแจ้งเตือน!</a>
         </div>
     </div>
 
-    <div class="footer">
-        <p>© 2026 Art & Grow สีสันปั้นสมอง — Color. Learn. Grow. 🌱</p>
-        <p><a href="https://www.facebook.com/profile.php?id=61592752235563" target="_blank">Facebook Page</a></p>
-    </div>
-
-    <!-- BOTTOM BAR -->
+    <!-- FLOATING BOTTOM BAR -->
     <div class="bottom-bar" id="bottomBar">
-        <div class="bottom-inner">
-            <div class="progress-section">
-                <div class="progress-header">
-                    <span class="progress-label">📚 เลือกธีม <span class="progress-remaining" id="remainText">(เลือกได้อีก 20 ธีม)</span></span>
-                    <span class="progress-count" id="progressCount">0 / 20</span>
-                </div>
-                <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
+        <div class="progress-bar-container">
+            <div class="progress-text-row">
+                <span id="bottomBarTitle">📚 เลือกธีม (เลือกได้อีก 20 ธีม)</span>
+                <span id="progressText">0 / 20</span>
             </div>
-            <div class="order-row">
-                <input type="text" class="order-input" id="customerName" placeholder="ชื่อเฟซบุ๊กที่ชำระเงินแล้ว...">
-                <button class="order-btn" onclick="submitOrder()">📤 ส่งรายการ</button>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progressBarFill"></div>
             </div>
+        </div>
+        <div class="input-container">
+            <input type="text" class="input-facebook" id="customerName" placeholder="กรอกชื่อ Facebook ที่ใช้ชำระเงินแล้ว...">
+            <button class="btn-submit" id="btnSubmit" onclick="submitOrder()" disabled>📥 ส่งรายการ</button>
         </div>
     </div>
 
-    <!-- ZOOM MODAL -->
-    <div class="modal-overlay" id="zoomModal" onclick="closeZoom()">
-        <div class="modal-close" onclick="closeZoom()">✕</div>
-        <div class="modal-content">
-            <img id="zoomImg" src="">
-            <div class="modal-watermark">SAMPLE</div>
+    <!-- ZOOM PREVIEW MODAL -->
+    <div class="zoom-modal" id="zoomModal" onclick="closeZoom()">
+        <div class="zoom-content" onclick="event.stopPropagation()">
+            <div class="modal-close" onclick="closeZoom()">×</div>
+            <img src="" class="zoom-img" id="zoomImg">
+            <div class="watermark-overlay">SAMPLE</div>
         </div>
     </div>
 
-    <!-- SUCCESS MODAL -->
+    <!-- SUCCESS POPUP MODAL -->
     <div class="success-modal" id="successModal">
         <div class="success-box">
             <div class="success-icon">🎉</div>
-            <div class="success-title">ส่งข้อมูลสำเร็จ!</div>
-            <div class="success-text">ระบบกำลังจัดเตรียมไฟล์ของคุณ<br>(ใช้เวลาประมาณ 5-10 นาที)<br><br>📱 รบกวนทักกลับไปที่<br><strong>เพจ Facebook</strong> แจ้งแอดมินว่า<br><strong>"เลือกธีมครบแล้ว"</strong> ได้เลยค่ะ! 🙏</div>
-            <button class="success-btn" onclick="closeSuccess()">เข้าใจแล้ว ✨</button>
+            <div class="success-title">ส่งรายการสำเร็จ!</div>
+            <div class="success-text">ระบบบันทึกธีมที่คุณเลือกเรียบร้อยแล้วค่ะ<br>เจ้าหน้าที่จะส่งลิงก์ดาวน์โหลดไฟล์ PDF ตัวเต็มให้ในอินบ็อกซ์ Facebook นะคะ 🙏</div>
+            <button class="success-btn" onclick="closeSuccess()">ตกลง</button>
         </div>
     </div>
 
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>© 2026 Art & Grow. All rights reserved.</p>
+        <p>สร้างสรรค์สมุดระบายสีและสื่อการเรียนรู้วัยเด็กระดับพรีเมียม</p>
+    </footer>
+
     <script>
-        // ====== THEME DATA (ใช้ภาพจริงจาก PDF) ======
+        // ====== THEMES DATABASE (50 ITEMS) ======
         const themes = [
             { id:1, name:'ตัวอักษร ABC', en:'Alphabet Abc', age:'3-6', img:'pics/alphabet_abc.jpg', bestSeller:true },
             { id:2, name:'สัตว์น่ารัก', en:'Animals', age:'3-6', img:'pics/animals.jpg', bestSeller:true },
@@ -492,7 +731,7 @@
             { id:47, name:'สภาพอากาศและท้องฟ้า', en:'Weather And Sky', age:'3-6', img:'pics/weather_and_sky.jpg', bestSeller:false },
             { id:48, name:'สัตว์ในป่าใหญ่', en:'Woodland Forest Animals', age:'3-6', img:'pics/woodland_forest_animals.jpg', bestSeller:false },
             { id:49, name:'การเต้น & วัฒนธรรมโลก', en:'World Dances And Cultures', age:'3-6', img:'pics/world_dances_and_cultures.jpg', bestSeller:false },
-            { id:50, name:'กีฬาโลก', en:'World Sports', age:'3-6', img:'pics/world_sports.jpg', bestSeller:false },
+            { id:50, name:'กีฬาโลก', en:'World Sports', age:'3-6', img:'pics/world_sports.jpg', bestSeller:false }
         ];
 
         let maxSelect = 20;
@@ -501,112 +740,162 @@
         let currentType = 'coloring';
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbznwlAtwIrf0DXo7SMFLH1Z4V3l57bsJg0v6qo-eJlmNxaYKglN8hK1zlA-3rUe4d14/exec';
 
-        // ====== RENDER ======
+        // ====== RENDER GRID ======
         function renderGrid() {
             const grid = document.getElementById('productGrid');
             grid.innerHTML = '';
+            
             themes.forEach(t => {
-                const sel = selectedIds.has(t.id);
-                const hide = currentFilter !== 'all' && t.age !== currentFilter;
+                const card = document.createElement('div');
+                // หากอยู่ในโหมด Preview จะไม่มีคลาส selected หรือขอบเขียว
+                const isSel = !isPreviewMode && selectedIds.has(t.id);
+                card.className = `card ${isSel ? 'selected' : ''}`;
+                card.id = `card-${t.id}`;
+                card.onclick = (e) => toggleSelect(e, t.id);
 
-                // สำหรับช่วงสมุดระบายสีแรกนี้ ทุกเล่มมีช่วงอายุเดียวคือ 3-6 ปี
-                const ageCls = 'age-3-6';
-                const ageLabel = '3-6 ปี';
-
-                grid.innerHTML += `
-                <div class="card ${sel?'selected':''} ${hide?'hidden':''}" id="card-${t.id}" onclick="toggleSelect(event, ${t.id})">
-                    <div class="check-badge" style="${sel?'opacity:1;transform:scale(1)':''}">✓</div>
+                card.innerHTML = `
                     <div class="card-img">
-                        <img src="${t.img}" alt="${t.name}" loading="lazy" onerror="this.style.display='none'">
-                        <span class="age-badge ${ageCls}">${ageLabel}</span>
-                        <div class="zoom-btn" onclick="openZoom(event,${t.id})">🔍</div>
+                        <img src="${t.img}" alt="${t.name}" loading="lazy">
+                        ${t.bestSeller ? '<span class="best-seller-badge">🔥 HIT</span>' : ''}
+                        <span class="age-badge age-3-6">${t.age} ปี</span>
+                        <div class="check-badge" style="opacity: ${isSel ? '1' : '0'}; transform: ${isSel ? 'scale(1)' : 'scale(0.5)'};">✓</div>
+                        <div class="zoom-btn" onclick="openZoom(event, ${t.id})">🔍 พรีวิวเปิดดู</div>
                     </div>
                     <div class="card-info">
                         <div class="card-title">${t.name}</div>
                         <div class="card-subtitle">${t.en}</div>
                     </div>
-                </div>`;
+                `;
+                grid.appendChild(card);
             });
         }
 
-        function toggleSelect(event, id) {
+        // ====== CARD INTERACTION ======
+        function toggleSelect(e, id) {
             if (isPreviewMode) {
-                openZoom(event, id);
+                // ในโหมด Preview ให้แตะที่การ์ดแล้วซูมดูรูปภาพทันที
+                openZoom(e, id);
                 return;
             }
-            if (selectedIds.has(id)) { selectedIds.delete(id); }
-            else { if (selectedIds.size >= maxSelect) { alert(`เลือกได้สูงสุด ${maxSelect} ธีมค่ะ 🙏`); return; } selectedIds.add(id); }
-            updateCard(id); updateProgress();
+            
+            const card = document.getElementById(`card-${id}`);
+            if (selectedIds.has(id)) {
+                selectedIds.delete(id);
+            } else {
+                if (selectedIds.size >= maxSelect) {
+                    alert(`เลือกครบ ${maxSelect} ธีมแล้วค่ะ หากต้องการเปลี่ยน กรุณากดเอาธีมที่ไม่ต้องการออกก่อนนะคะ 🙏`);
+                    return;
+                }
+                selectedIds.add(id);
+            }
+            updateCard(id);
+            updateProgress();
         }
+
         function updateCard(id) {
             const card = document.getElementById(`card-${id}`);
+            if (!card) return;
+            const isSel = !isPreviewMode && selectedIds.has(id);
+            card.classList.toggle('selected', isSel);
             const badge = card.querySelector('.check-badge');
-            if (selectedIds.has(id)) { card.classList.add('selected'); badge.style.opacity='1'; badge.style.transform='scale(1)'; }
-            else { card.classList.remove('selected'); badge.style.opacity='0'; badge.style.transform='scale(0.5)'; }
-        }
-        function updateProgress() {
-            const n = selectedIds.size, pct = (n/maxSelect)*100, ok = n===maxSelect;
-            const remaining = maxSelect - n;
-            document.getElementById('progressCount').textContent = `${n} / ${maxSelect}`;
-            document.getElementById('progressCount').className = `progress-count ${ok?'ready':''}`;
-            document.getElementById('remainText').textContent = ok ? '✅ ครบแล้ว!' : `(เลือกได้อีก ${remaining} ธีม)`;
-            const bar = document.getElementById('progressBar');
-            bar.style.width = `${Math.min(pct, 100)}%`;
-            bar.className = `progress-bar-fill ${ok?'ready':''}`;
-        }
-        function filterAge(age) {
-            currentFilter = age;
-            document.querySelectorAll('.card').forEach(c => {
-                const cid = parseInt(c.id.replace('card-',''));
-                const th = themes.find(t => t.id === cid);
-                c.classList.toggle('hidden', th.age !== age);
-            });
-            renderPackageOptions();
-        }
-        function selectAgeGroup(age) {
-            document.querySelectorAll('.price-card').forEach(c => c.classList.remove('active'));
-            // ค้นหาการ์ดราคาโดยดูจากข้อความ
-            document.querySelectorAll('.price-card').forEach(c => {
-                if (c.innerHTML.includes(age)) c.classList.add('active');
-            });
-            filterAge(age);
-        }
-        function switchType(type) {
-            currentType = type;
-            document.querySelectorAll('.type-tab').forEach((t,i) => t.classList.toggle('active', i === ['coloring','handwriting','worksheet'].indexOf(type)));
-            document.getElementById('coloringSection').style.display = type==='coloring'?'':'none';
-            document.getElementById('handwritingSection').style.display = type==='handwriting'?'':'none';
-            document.getElementById('worksheetSection').style.display = type==='worksheet'?'':'none';
-            if (isPreviewMode) {
-                document.getElementById('bottomBar').style.display = 'none';
-            } else {
-                document.getElementById('bottomBar').style.display = type==='coloring'?'':'none';
+            if (badge) {
+                badge.style.opacity = isSel ? '1' : '0';
+                badge.style.transform = isSel ? 'scale(1)' : 'scale(0.5)';
             }
         }
+
+        function updateProgress() {
+            const titleEl = document.getElementById('bottomBarTitle');
+            const textEl = document.getElementById('progressText');
+            const fillEl = document.getElementById('progressBarFill');
+            const submitBtn = document.getElementById('btnSubmit');
+
+            const current = selectedIds.size;
+            
+            if (titleEl) titleEl.textContent = `📚 เลือกธีม (เลือกได้อีก ${maxSelect - current} ธีม)`;
+            if (textEl) textEl.textContent = `${current} / ${maxSelect}`;
+            
+            if (fillEl) {
+                const percent = (current / maxSelect) * 100;
+                fillEl.style.width = `${percent}%`;
+            }
+
+            if (submitBtn) {
+                submitBtn.disabled = (current !== maxSelect);
+            }
+        }
+
+        // ====== SUBMIT ORDER ======
+        function submitOrder() {
+            const nameInput = document.getElementById('customerName');
+            const name = nameInput ? nameInput.value.trim() : '';
+            if (selectedIds.size !== maxSelect) {
+                alert(`กรุณาเลือกธีมให้ครบ ${maxSelect} ธีมก่อนส่งค่ะ\n(ขณะนี้คุณเลือกไปแล้ว ${selectedIds.size} ธีม)`);
+                return;
+            }
+            if (!name) {
+                alert('กรุณากรอกชื่อ Facebook ที่ใช้ชำระเงินก่อนค่ะ 🙏');
+                return;
+            }
+
+            const items = Array.from(selectedIds).sort((a,b)=>a-b).map(id => {
+                const t = themes.find(th => th.id === id);
+                return `${t.name} (${t.en})`;
+            }).join(', ');
+
+            if (SCRIPT_URL && SCRIPT_URL !== 'YOUR_GOOGLE_APPS_SCRIPT_URL') {
+                fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'text/plain' },
+                    body: JSON.stringify({
+                        name: name,
+                        items: items,
+                        count: selectedIds.size,
+                        timestamp: new Date().toLocaleString('th-TH')
+                    })
+                });
+            }
+
+            document.getElementById('successModal').classList.add('show');
+            selectedIds.clear();
+            if (nameInput) nameInput.value = '';
+            themes.forEach(t => updateCard(t.id));
+            updateProgress();
+        }
+
+        function closeSuccess() {
+            document.getElementById('successModal').classList.remove('show');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ====== ZOOM PREVIEW ======
         function openZoom(e, id) {
             e.stopPropagation();
             const t = themes.find(th => th.id === id);
-            document.getElementById('zoomImg').src = t.img;
-            document.getElementById('zoomModal').classList.add('show');
-        }
-        function closeZoom() { document.getElementById('zoomModal').classList.remove('show'); }
-        function submitOrder() {
-            const name = document.getElementById('customerName').value.trim();
-            if (selectedIds.size !== maxSelect) { alert(`กรุณาเลือกธีมให้ครบ ${maxSelect} ธีมค่ะ\n(ตอนนี้เลือกไป ${selectedIds.size} ธีม)`); return; }
-            if (!name) { alert('กรุณากรอกชื่อ Facebook ที่ใช้สั่งซื้อก่อนค่ะ 🙏'); return; }
-            const items = Array.from(selectedIds).sort((a,b)=>a-b).map(id => { const t=themes.find(th=>th.id===id); return `${t.name} (${t.en})`; }).join(', ');
-            if (SCRIPT_URL !== 'YOUR_GOOGLE_APPS_SCRIPT_URL') {
-                fetch(SCRIPT_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'text/plain'}, body:JSON.stringify({name,items,count:selectedIds.size,timestamp:new Date().toLocaleString('th-TH')}) });
+            if (t) {
+                const zoomImg = document.getElementById('zoomImg');
+                if (zoomImg) zoomImg.src = t.img;
+                document.getElementById('zoomModal').classList.add('show');
             }
-            document.getElementById('successModal').classList.add('show');
-            selectedIds.clear();
-            document.getElementById('customerName').value = '';
-            document.querySelectorAll('.card').forEach(c => { c.classList.remove('selected'); const b=c.querySelector('.check-badge'); b.style.opacity='0'; b.style.transform='scale(0.5)'; });
-            updateProgress();
         }
-        function closeSuccess() { document.getElementById('successModal').classList.remove('show'); window.scrollTo({top:0,behavior:'smooth'}); }
+        function closeZoom() {
+            document.getElementById('zoomModal').classList.remove('show');
+        }
 
-        // ====== SET PACKAGE ======
+        // ====== TYPE SWITCHER (TABS) ======
+        function switchType(type) {
+            currentType = type;
+            document.querySelectorAll('.type-tab').forEach((t, i) => {
+                t.classList.toggle('active', ['coloring', 'handwriting', 'worksheet'][i] === type);
+            });
+
+            document.getElementById('coloringSection').style.display = type === 'coloring' ? '' : 'none';
+            document.getElementById('handwritingSection').style.display = type === 'handwriting' ? '' : 'none';
+            document.getElementById('worksheetSection').style.display = type === 'worksheet' ? '' : 'none';
+        }
+
+        // ====== SET PACKAGE & RENDER ======
         function setPackage(size) {
             maxSelect = size;
             document.querySelectorAll('.package-option').forEach(opt => {
@@ -615,7 +904,6 @@
             });
             document.getElementById('randomBtn').textContent = `🎲 สุ่มเลือก ${maxSelect} ธีม (จัดธีมฮิตให้ก่อน)`;
 
-            // หากมีธีมที่เลือกไว้เกินกว่าแพ็กเกจใหม่ ให้ตัดออก
             if (selectedIds.size > maxSelect) {
                 const arr = Array.from(selectedIds);
                 selectedIds = new Set(arr.slice(0, maxSelect));
@@ -624,18 +912,19 @@
             updateProgress();
         }
 
-        // ====== RENDER PACKAGE OPTIONS (สลับตามอายุและสินค้าที่มี) ======
         function renderPackageOptions() {
             const pkgOptionsDiv = document.querySelector('.package-options');
+            if (!pkgOptionsDiv) return;
+            
             let html = '';
             if (currentFilter === '3-6') {
-                if (maxSelect === 40) maxSelect = 20; // 3-6 ปี ไม่มีแพ็กเกจ 40 ธีม
-                html += `<div class="package-option ${maxSelect===20?'active':''}" onclick="setPackage(20)">20 ธีม</div>`;
-                html += `<div class="package-option ${maxSelect===50?'active':''}" onclick="setPackage(50)">50 ธีม</div>`;
+                if (maxSelect === 40) maxSelect = 20;
+                html += `<div class="package-option ${maxSelect === 20 ? 'active' : ''}" onclick="setPackage(20)">20 ธีม</div>`;
+                html += `<div class="package-option ${maxSelect === 50 ? 'active' : ''}" onclick="setPackage(50)">50 ธีม</div>`;
             } else {
-                if (maxSelect === 50) maxSelect = 20; // 6-9 และ 9+ ปี ไม่มีแพ็กเกจ 50 ธีม
-                html += `<div class="package-option ${maxSelect===20?'active':''}" onclick="setPackage(20)">20 ธีม</div>`;
-                html += `<div class="package-option ${maxSelect===40?'active':''}" onclick="setPackage(40)">40 ธีม</div>`;
+                if (maxSelect === 50) maxSelect = 20;
+                html += `<div class="package-option ${maxSelect === 20 ? 'active' : ''}" onclick="setPackage(20)">20 ธีม</div>`;
+                html += `<div class="package-option ${maxSelect === 40 ? 'active' : ''}" onclick="setPackage(40)">40 ธีม</div>`;
             }
             pkgOptionsDiv.innerHTML = html;
             document.getElementById('randomBtn').textContent = `🎲 สุ่มเลือก ${maxSelect} ธีม (จัดธีมฮิตให้ก่อน)`;
@@ -650,7 +939,6 @@
             const bests = candidates.filter(t => t.bestSeller);
             const regs = candidates.filter(t => !t.bestSeller);
 
-            // Fisher-Yates Shuffle
             const shuffle = (array) => {
                 for (let i = array.length - 1; i > 0; i--) {
                     const j = Math.floor(Math.random() * (i + 1));
@@ -669,26 +957,33 @@
             updateProgress();
         }
 
-        // ====== INIT COUNTS ======
-        function initCounts() {
-            const el36 = document.getElementById('count-3-6');
-            const el69 = document.getElementById('count-6-9');
-            const el9 = document.getElementById('count-9');
-            if (el36) el36.textContent = themes.filter(t => t.age === '3-6').length;
-            if (el69) el69.textContent = themes.filter(t => t.age === '6-9').length;
-            if (el9) el9.textContent = themes.filter(t => t.age === '9+').length;
+        // ====== AGE SELECTOR (PAID MODE CARD ACTION) ======
+        function selectAgeGroup(age) {
+            if (isLockedMode) return;
+            filterAge(age);
+            document.querySelectorAll('.price-card').forEach(c => {
+                c.classList.toggle('active', c.innerHTML.includes(age));
+            });
         }
 
-        document.addEventListener('keydown', e => { if(e.key==='Escape'){closeZoom();closeSuccess();} });
+        function filterAge(age) {
+            currentFilter = age;
+            renderPackageOptions();
+            
+            // กรองธีมตามอายุ
+            themes.forEach(t => {
+                const card = document.getElementById(`card-${t.id}`);
+                if (card) {
+                    card.classList.toggle('hidden', t.age !== age);
+                    card.style.display = t.age === age ? '' : 'none';
+                }
+            });
+        }
 
-        initCounts();
-        renderPackageOptions();
-        filterAge('3-6'); // เริ่มต้นที่ 3-6 ปี
-        renderGrid();
-
-        // ====== AUTO SELECT VIA URL QUERY PARAMS ======
+        // ====== INITIALIZATION & PARAMS ======
         let isLockedMode = false;
         let isPreviewMode = false;
+
         function checkUrlParams() {
             const params = new URLSearchParams(window.location.search);
             const pkg = params.get('pkg') || params.get('package');
@@ -715,12 +1010,11 @@
                 targetAge = preview;
             }
             filterAge(targetAge);
-            document.querySelectorAll('.price-card').forEach(c => c.classList.remove('active'));
             document.querySelectorAll('.price-card').forEach(c => {
-                if (c.innerHTML.includes(targetAge)) c.classList.add('active');
+                c.classList.toggle('active', c.innerHTML.includes(targetAge));
             });
 
-            // 4. จัดการขนาดแพ็กเกจ (กรณีสุ่มเลือกธีมตั้งต้นให้ทั้งโหมดปกติและโหมดพรีวิว)
+            // 4. จัดการขนาดแพ็กเกจ (กรณีสุ่มเลือกธีมตั้งต้นให้เฉพาะในโหมดปกติ)
             let size = 20; // ค่าเริ่มต้น
             if (pkg && pkg !== 'preview') {
                 size = parseInt(pkg);
@@ -754,6 +1048,7 @@
                 applyPaidLayout(targetAge);
             }
         }
+
         function applyLockMode() {
             if (isLockedMode) {
                 document.querySelectorAll('.pricing-row, .type-tabs, .filter-tabs, .package-section').forEach(el => {
@@ -761,6 +1056,7 @@
                 });
             }
         }
+
         function applyPreviewLayout(targetAge) {
             // ตั้งค่าแบนเนอร์แสดงชื่อโหมด Preview
             const banner = document.getElementById('modeTitleBanner');
@@ -780,7 +1076,8 @@
             if (filterSection) filterSection.style.display = 'none';
             
             // ซ่อนแถบส่งรายการด้านล่าง
-            document.getElementById('bottomBar').style.display = 'none';
+            const bottomBar = document.getElementById('bottomBar');
+            if (bottomBar) bottomBar.style.display = 'none';
             
             // ซ่อนปุ่มดาวน์โหลดไฟล์ PDF จริงในหน้าพรีวิว
             document.querySelectorAll('.download-btn').forEach(el => {
@@ -805,6 +1102,7 @@
             
             document.body.style.paddingBottom = '40px';
         }
+
         function applyPaidLayout(targetAge) {
             // ตั้งค่าแบนเนอร์แสดงชื่อโหมดเลือกธีม
             const banner = document.getElementById('modeTitleBanner');
@@ -821,25 +1119,36 @@
             const pkgSection = document.querySelector('.package-section');
             if (pkgSection) pkgSection.style.display = 'none';
             
-            // ซ่อนแถบฟิลเตอร์อายุออกไปเลย เพื่อไม่ให้สลับ
-            const filterTabs = document.getElementById('filterTabs');
-            if (filterTabs) filterTabs.style.display = 'none';
-            
             // ซ่อนแถบเลือกประเภทสินค้าทั้งหมด (เหลือแต่สินค้าหลักที่จ่ายเงินเข้ามาเลือก)
             const typeSection = document.querySelector('.type-section');
             if (typeSection) typeSection.style.display = 'none';
             
             // แสดงปุ่มสุ่มและแถบสั่งซื้อ
-            document.getElementById('randomBtn').style.display = '';
-            document.getElementById('bottomBar').style.display = '';
+            const randomBtn = document.getElementById('randomBtn');
+            if (randomBtn) randomBtn.style.display = '';
+            const bottomBar = document.getElementById('bottomBar');
+            if (bottomBar) bottomBar.style.display = '';
             
             // ตรวจสอบกรณีลูกค้าจ่ายเงินซื้อสมุดคัดลายมือ (type === handwriting) ให้ซ่อนปุ่มสุ่ม
             const params = new URLSearchParams(window.location.search);
             const type = params.get('type') || params.get('tab');
-            if (type === 'handwriting') {
-                document.getElementById('randomBtn').style.display = 'none';
+            if (type === 'handwriting' && randomBtn) {
+                randomBtn.style.display = 'none';
             }
         }
+
+        // Global keys to dismiss modals
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') {
+                closeZoom();
+                closeSuccess();
+            }
+        });
+
+        // Initialize grid rendering first
+        renderGrid();
+        
+        // Parse params and trigger layouts
         checkUrlParams();
     </script>
 </body>
