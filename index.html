@@ -534,6 +534,35 @@
             filter: grayscale(30%);
             cursor: not-allowed;
         }
+
+        /* === PACKAGE GROUPS === */
+        .package-group-box {
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            transition: all 0.3s ease;
+        }
+        .small-pack-box {
+            border: 2px solid rgba(78, 205, 196, 0.45);
+            background: rgba(78, 205, 196, 0.015);
+        }
+        .large-pack-box {
+            border: 2px dashed rgba(255, 107, 107, 0.35);
+            background: rgba(255, 107, 107, 0.005);
+        }
+        .package-group-header {
+            font-size: 17px;
+            font-weight: 800;
+            color: var(--teal-dark);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Fredoka One', 'Sarabun', sans-serif;
+            border-bottom: 2px solid rgba(0, 0, 0, 0.04);
+            padding-bottom: 8px;
+        }
     </style>
 </head>
 <body>
@@ -598,7 +627,17 @@
             </div>
         </section>
         <div class="container">
-            <div class="grid" id="productGrid"></div>
+            <!-- Small Package Group Box (First 20 Themes) -->
+            <div class="package-group-box small-pack-box" id="smallPackBox">
+                <div class="package-group-header">📦 20 ธีมหลักในชุดเล็ก (รวมธีมยอดฮิต 🔥 HIT 3 ธีม)</div>
+                <div class="grid" id="smallProductGrid"></div>
+            </div>
+            
+            <!-- Additional Themes Group Box (Remaining 30 Themes) -->
+            <div class="package-group-box large-pack-box" id="largePackBox">
+                <div class="package-group-header" style="color: var(--coral);">✨ อีก 30 ธีมพิเศษสำหรับชุดใหญ่ 50 ธีม (มีธีมยอดฮิต 🔥 HIT อีก 7 ธีม!)</div>
+                <div class="grid" id="largeProductGrid"></div>
+            </div>
         </div>
     </div>
 
@@ -708,56 +747,59 @@
     <script>
         // ====== THEMES DATABASE (50 ITEMS) ======
         const themes = [
-            { id:1, name:'ตัวอักษร ABC', en:'Alphabet Abc', age:'3-6', img:'pics/alphabet_abc.jpg', bestSeller:true },
-            { id:2, name:'สัตว์น่ารัก', en:'Animals', age:'3-6', img:'pics/animals.jpg', bestSeller:true },
-            { id:3, name:'สัตว์ขั้วโลก', en:'Arctic And Polar Animals', age:'3-6', img:'pics/arctic_and_polar_animals.jpg', bestSeller:false },
-            { id:4, name:'ลูกสัตว์ตัวน้อย', en:'Baby Animals', age:'3-6', img:'pics/baby_animals.jpg', bestSeller:true },
-            { id:5, name:'ก่อนนอนและแดนฝัน', en:'Bedtime And Dreams', age:'3-6', img:'pics/bedtime_and_dreams.jpg', bestSeller:false },
-            { id:6, name:'นกรอบโลก', en:'Birds Of The World', age:'3-6', img:'pics/birds_of_the_world.jpg', bestSeller:false },
-            { id:7, name:'แมลงตัวจิ๋ว', en:'Bugs And Insects', age:'3-6', img:'pics/bugs_and_insects.jpg', bestSeller:false },
-            { id:8, name:'แคมป์ปิ้งกลางป่า', en:'Camping And Outdoors', age:'3-6', img:'pics/camping_and_outdoors.jpg', bestSeller:false },
-            { id:9, name:'ปราสาทอัศวิน', en:'Castles And Knights', age:'3-6', img:'pics/castles_and_knights.jpg', bestSeller:false },
-            { id:10, name:'คริสต์มาส & หน้าหนาว', en:'Christmas And Winter', age:'3-6', img:'pics/christmas_and_winter.jpg', bestSeller:false },
-            { id:11, name:'ละครสัตว์และงานคาร์นิวัล', en:'Circus And Carnival', age:'3-6', img:'pics/circus_and_carnival.jpg', bestSeller:false },
-            { id:12, name:'อาชีพในฝัน', en:'Community Helpers', age:'3-6', img:'pics/community_helpers.jpg', bestSeller:false },
-            { id:13, name:'ไดโนเสาร์', en:'Dinosaurs', age:'3-6', img:'pics/dinosaurs.jpg', bestSeller:true },
-            { id:14, name:'มังกร & สัตว์ในตำนาน', en:'Dragons And Mythical Creatures', age:'3-6', img:'pics/dragons_and_mythical_creatures.jpg', bestSeller:false },
-            { id:15, name:'อารมณ์ & ความรู้สึก', en:'Emotions And Feelings', age:'3-6', img:'pics/emotions_and_feelings.jpg', bestSeller:false },
-            { id:16, name:'เทพนิยาย', en:'Fairy Tales', age:'3-6', img:'pics/fairy_tales.jpg', bestSeller:false },
-            { id:17, name:'ชีวิตในฟาร์ม', en:'Farm Life', age:'3-6', img:'pics/farm_life.jpg', bestSeller:false },
-            { id:18, name:'ดอกไม้ & สวน', en:'Flowers And Garden', age:'3-6', img:'pics/flowers_and_garden.jpg', bestSeller:false },
-            { id:19, name:'อาหาร & ขนม', en:'Food And Sweets', age:'3-6', img:'pics/food_and_sweets.jpg', bestSeller:false },
-            { id:20, name:'ทำสวนและปลูกต้นไม้', en:'Garden And Planting', age:'3-6', img:'pics/garden_and_planting.jpg', bestSeller:false },
-            { id:21, name:'ฮาโลวีน', en:'Halloween Fun', age:'3-6', img:'pics/halloween_fun.jpg', bestSeller:false },
-            { id:22, name:'ป่าดงดิบ', en:'Jungle Adventure', age:'3-6', img:'pics/jungle_adventure.jpg', bestSeller:false },
-            { id:23, name:'แผนที่และภูมิศาสตร์', en:'Maps And Geography', age:'3-6', img:'pics/maps_and_geography.jpg', bestSeller:false },
-            { id:24, name:'นางเงือก & มหาสมุทร', en:'Mermaids And Ocean Fantasy', age:'3-6', img:'pics/mermaids_and_ocean_fantasy.jpg', bestSeller:false },
-            { id:25, name:'เครื่องดนตรี', en:'Musical Instruments', age:'3-6', img:'pics/musical_instruments.jpg', bestSeller:false },
-            { id:26, name:'อวัยวะร่างกาย', en:'My Body Parts', age:'3-6', img:'pics/my_body_parts.jpg', bestSeller:false },
-            { id:27, name:'ธรรมชาติ & วัฏจักร', en:'Nature And Life Cycles', age:'3-6', img:'pics/nature_and_life_cycles.jpg', bestSeller:false },
-            { id:28, name:'ตัวเลข & การนับ', en:'Numbers And Counting', age:'3-6', img:'pics/numbers_and_counting.jpg', bestSeller:true },
-            { id:29, name:'โลกใต้ทะเล', en:'Ocean And Sea Life', age:'3-6', img:'pics/ocean_and_sea_life.jpg', bestSeller:false },
-            { id:30, name:'โจรสลัด & สมบัติ', en:'Pirates And Treasure', age:'3-6', img:'pics/pirates_and_treasure.jpg', bestSeller:false },
-            { id:31, name:'สัตว์ป่าฝน', en:'Rainforest Animals', age:'3-6', img:'pics/rainforest_animals.jpg', bestSeller:false },
-            { id:32, name:'หุ่นยนต์ & เครื่องจักร', en:'Robots And Machines', age:'3-6', img:'pics/robots_and_machines.jpg', bestSeller:false },
-            { id:33, name:'ซาฟารี', en:'Safari Animals', age:'3-6', img:'pics/safari_animals.jpg', bestSeller:false },
-            { id:34, name:'ฤดูกาลทั้งสี่', en:'Seasons Of The Year', age:'3-6', img:'pics/seasons_of_the_year.jpg', bestSeller:false },
-            { id:35, name:'รูปทรง & สีสัน', en:'Shapes And Colors', age:'3-6', img:'pics/shapes_and_colors.jpg', bestSeller:true },
-            { id:36, name:'ผจญภัยอวกาศ', en:'Space Adventure', age:'3-6', img:'pics/space_adventure.jpg', bestSeller:true },
-            { id:37, name:'ซูเปอร์ฮีโร่', en:'Superheroes', age:'3-6', img:'pics/superheroes.jpg', bestSeller:false },
-            { id:38, name:'อักษรไทย ก-ฮ', en:'Thai Alphabet', age:'3-6', img:'pics/thai_alphabet.jpg', bestSeller:true },
-            { id:39, name:'ตัวละครในวรรณคดีไทย', en:'Thai Literature Characters', age:'3-6', img:'pics/thai_literature_characters.jpg', bestSeller:false },
-            { id:40, name:'การละเล่นไทยเดิม', en:'Thai Traditional Games', age:'3-6', img:'pics/thai_traditional_games.jpg', bestSeller:false },
-            { id:41, name:'ของเล่น & สนามเด็กเล่น', en:'Toys And Playtime', age:'3-6', img:'pics/toys_and_playtime.jpg', bestSeller:false },
-            { id:42, name:'รถไฟและทางรถไฟ', en:'Trains And Railways', age:'3-6', img:'pics/trains_and_railways.jpg', bestSeller:false },
-            { id:43, name:'เขตก่อสร้างแสนสนุก', en:'Under Construction', age:'3-6', img:'pics/under_construction.jpg', bestSeller:false },
-            { id:44, name:'ส่องโลกใต้กล้องจุลทรรศน์', en:'Under The Microscope', age:'3-6', img:'pics/under_the_microscope.jpg', bestSeller:false },
-            { id:45, name:'ยูนิคอร์น & เวทมนตร์', en:'Unicorns And Magic', age:'3-6', img:'pics/unicorns_and_magic.jpg', bestSeller:true },
-            { id:46, name:'ยานพาหนะ', en:'Vehicles And Transportation', age:'3-6', img:'pics/vehicles_and_transportation.jpg', bestSeller:true },
-            { id:47, name:'สภาพอากาศและท้องฟ้า', en:'Weather And Sky', age:'3-6', img:'pics/weather_and_sky.jpg', bestSeller:false },
-            { id:48, name:'สัตว์ในป่าใหญ่', en:'Woodland Forest Animals', age:'3-6', img:'pics/woodland_forest_animals.jpg', bestSeller:false },
-            { id:49, name:'การเต้น & วัฒนธรรมโลก', en:'World Dances And Cultures', age:'3-6', img:'pics/world_dances_and_cultures.jpg', bestSeller:false },
-            { id:50, name:'กีฬาโลก', en:'World Sports', age:'3-6', img:'pics/world_sports.jpg', bestSeller:false }
+            // --- 20 themes in Small Pack ---
+            { id:1, name:'ตัวอักษร ABC', en:'Alphabet Abc', age:'3-6', img:'pics/alphabet_abc.jpg', bestSeller:true, smallPack:true },
+            { id:2, name:'สัตว์น่ารัก', en:'Animals', age:'3-6', img:'pics/animals.jpg', bestSeller:true, smallPack:true },
+            { id:3, name:'สัตว์ขั้วโลก', en:'Arctic And Polar Animals', age:'3-6', img:'pics/arctic_and_polar_animals.jpg', bestSeller:false, smallPack:true },
+            { id:5, name:'ก่อนนอนและแดนฝัน', en:'Bedtime And Dreams', age:'3-6', img:'pics/bedtime_and_dreams.jpg', bestSeller:false, smallPack:true },
+            { id:6, name:'นกรอบโลก', en:'Birds Of The World', age:'3-6', img:'pics/birds_of_the_world.jpg', bestSeller:false, smallPack:true },
+            { id:7, name:'แมลงตัวจิ๋ว', en:'Bugs And Insects', age:'3-6', img:'pics/bugs_and_insects.jpg', bestSeller:false, smallPack:true },
+            { id:8, name:'แคมป์ปิ้งกลางป่า', en:'Camping And Outdoors', age:'3-6', img:'pics/camping_and_outdoors.jpg', bestSeller:false, smallPack:true },
+            { id:9, name:'ปราสาทอัศวิน', en:'Castles And Knights', age:'3-6', img:'pics/castles_and_knights.jpg', bestSeller:false, smallPack:true },
+            { id:10, name:'คริสต์มาส & หน้าหนาว', en:'Christmas And Winter', age:'3-6', img:'pics/christmas_and_winter.jpg', bestSeller:false, smallPack:true },
+            { id:11, name:'ละครสัตว์และงานคาร์นิวัล', en:'Circus And Carnival', age:'3-6', img:'pics/circus_and_carnival.jpg', bestSeller:false, smallPack:true },
+            { id:12, name:'อาชีพในฝัน', en:'Community Helpers', age:'3-6', img:'pics/community_helpers.jpg', bestSeller:false, smallPack:true },
+            { id:13, name:'ไดโนเสาร์', en:'Dinosaurs', age:'3-6', img:'pics/dinosaurs.jpg', bestSeller:true, smallPack:true },
+            { id:14, name:'มังกร & สัตว์ในตำนาน', en:'Dragons And Mythical Creatures', age:'3-6', img:'pics/dragons_and_mythical_creatures.jpg', bestSeller:false, smallPack:true },
+            { id:15, name:'อารมณ์ & ความรู้สึก', en:'Emotions And Feelings', age:'3-6', img:'pics/emotions_and_feelings.jpg', bestSeller:false, smallPack:true },
+            { id:16, name:'เทพนิยาย', en:'Fairy Tales', age:'3-6', img:'pics/fairy_tales.jpg', bestSeller:false, smallPack:true },
+            { id:17, name:'ชีวิตในฟาร์ม', en:'Farm Life', age:'3-6', img:'pics/farm_life.jpg', bestSeller:false, smallPack:true },
+            { id:18, name:'ดอกไม้ & สวน', en:'Flowers And Garden', age:'3-6', img:'pics/flowers_and_garden.jpg', bestSeller:false, smallPack:true },
+            { id:19, name:'อาหาร & ขนม', en:'Food And Sweets', age:'3-6', img:'pics/food_and_sweets.jpg', bestSeller:false, smallPack:true },
+            { id:20, name:'ทำสวนและปลูกต้นไม้', en:'Garden And Planting', age:'3-6', img:'pics/garden_and_planting.jpg', bestSeller:false, smallPack:true },
+            { id:21, name:'ฮาโลวีน', en:'Halloween Fun', age:'3-6', img:'pics/halloween_fun.jpg', bestSeller:false, smallPack:true },
+
+            // --- Remaining 30 themes (available only in 50 themes package) ---
+            { id:4, name:'ลูกสัตว์ตัวน้อย', en:'Baby Animals', age:'3-6', img:'pics/baby_animals.jpg', bestSeller:true, smallPack:false },
+            { id:22, name:'ป่าดงดิบ', en:'Jungle Adventure', age:'3-6', img:'pics/jungle_adventure.jpg', bestSeller:false, smallPack:false },
+            { id:23, name:'แผนที่และภูมิศาสตร์', en:'Maps And Geography', age:'3-6', img:'pics/maps_and_geography.jpg', bestSeller:false, smallPack:false },
+            { id:24, name:'นางเงือก & มหาสมุทร', en:'Mermaids And Ocean Fantasy', age:'3-6', img:'pics/mermaids_and_ocean_fantasy.jpg', bestSeller:false, smallPack:false },
+            { id:25, name:'เครื่องดนตรี', en:'Musical Instruments', age:'3-6', img:'pics/musical_instruments.jpg', bestSeller:false, smallPack:false },
+            { id:26, name:'อวัยวะร่างกาย', en:'My Body Parts', age:'3-6', img:'pics/my_body_parts.jpg', bestSeller:false, smallPack:false },
+            { id:27, name:'ธรรมชาติ & วัฏจักร', en:'Nature And Life Cycles', age:'3-6', img:'pics/nature_and_life_cycles.jpg', bestSeller:false, smallPack:false },
+            { id:28, name:'ตัวเลข & การนับ', en:'Numbers And Counting', age:'3-6', img:'pics/numbers_and_counting.jpg', bestSeller:true, smallPack:false },
+            { id:29, name:'โลกใต้ทะเล', en:'Ocean And Sea Life', age:'3-6', img:'pics/ocean_and_sea_life.jpg', bestSeller:false, smallPack:false },
+            { id:30, name:'โจรสลัด & สมบัติ', en:'Pirates And Treasure', age:'3-6', img:'pics/pirates_and_treasure.jpg', bestSeller:false, smallPack:false },
+            { id:31, name:'สัตว์ป่าฝน', en:'Rainforest Animals', age:'3-6', img:'pics/rainforest_animals.jpg', bestSeller:false, smallPack:false },
+            { id:32, name:'หุ่นยนต์ & เครื่องจักร', en:'Robots And Machines', age:'3-6', img:'pics/robots_and_machines.jpg', bestSeller:false, smallPack:false },
+            { id:33, name:'ซาฟารี', en:'Safari Animals', age:'3-6', img:'pics/safari_animals.jpg', bestSeller:false, smallPack:false },
+            { id:34, name:'ฤดูกาลทั้งสี่', en:'Seasons Of The Year', age:'3-6', img:'pics/seasons_of_the_year.jpg', bestSeller:false, smallPack:false },
+            { id:35, name:'รูปทรง & สีสัน', en:'Shapes And Colors', age:'3-6', img:'pics/shapes_and_colors.jpg', bestSeller:true, smallPack:false },
+            { id:36, name:'ผจญภัยอวกาศ', en:'Space Adventure', age:'3-6', img:'pics/space_adventure.jpg', bestSeller:true, smallPack:false },
+            { id:37, name:'ซูเปอร์ฮีโร่', en:'Superheroes', age:'3-6', img:'pics/superheroes.jpg', bestSeller:false, smallPack:false },
+            { id:38, name:'อักษรไทย ก-ฮ', en:'Thai Alphabet', age:'3-6', img:'pics/thai_alphabet.jpg', bestSeller:true, smallPack:false },
+            { id:39, name:'ตัวละครในวรรณคดีไทย', en:'Thai Literature Characters', age:'3-6', img:'pics/thai_literature_characters.jpg', bestSeller:false, smallPack:false },
+            { id:40, name:'การละเล่นไทยเดิม', en:'Thai Traditional Games', age:'3-6', img:'pics/thai_traditional_games.jpg', bestSeller:false, smallPack:false },
+            { id:41, name:'ของเล่น & สนามเด็กเล่น', en:'Toys And Playtime', age:'3-6', img:'pics/toys_and_playtime.jpg', bestSeller:false, smallPack:false },
+            { id:42, name:'รถไฟและทางรถไฟ', en:'Trains And Railways', age:'3-6', img:'pics/trains_and_railways.jpg', bestSeller:false, smallPack:false },
+            { id:43, name:'เขตก่อสร้างแสนสนุก', en:'Under Construction', age:'3-6', img:'pics/under_construction.jpg', bestSeller:false, smallPack:false },
+            { id:44, name:'ส่องโลกใต้กล้องจุลทรรศน์', en:'Under The Microscope', age:'3-6', img:'pics/under_the_microscope.jpg', bestSeller:false, smallPack:false },
+            { id:45, name:'ยูนิคอร์น & เวทมนตร์', en:'Unicorns And Magic', age:'3-6', img:'pics/unicorns_and_magic.jpg', bestSeller:true, smallPack:false },
+            { id:46, name:'ยานพาหนะ', en:'Vehicles And Transportation', age:'3-6', img:'pics/vehicles_and_transportation.jpg', bestSeller:true, smallPack:false },
+            { id:47, name:'สภาพอากาศและท้องฟ้า', en:'Weather And Sky', age:'3-6', img:'pics/weather_and_sky.jpg', bestSeller:false, smallPack:false },
+            { id:48, name:'สัตว์ในป่าใหญ่', en:'Woodland Forest Animals', age:'3-6', img:'pics/woodland_forest_animals.jpg', bestSeller:false, smallPack:false },
+            { id:49, name:'การเต้น & วัฒนธรรมโลก', en:'World Dances And Cultures', age:'3-6', img:'pics/world_dances_and_cultures.jpg', bestSeller:false, smallPack:false },
+            { id:50, name:'กีฬาโลก', en:'World Sports', age:'3-6', img:'pics/world_sports.jpg', bestSeller:false, smallPack:false }
         ];
 
         let maxSelect = 20;
@@ -768,12 +810,13 @@
 
         // ====== RENDER GRID ======
         function renderGrid() {
-            const grid = document.getElementById('productGrid');
-            grid.innerHTML = '';
+            const smallGrid = document.getElementById('smallProductGrid');
+            const largeGrid = document.getElementById('largeProductGrid');
+            if (smallGrid) smallGrid.innerHTML = '';
+            if (largeGrid) largeGrid.innerHTML = '';
             
             themes.forEach(t => {
                 const card = document.createElement('div');
-                // หากอยู่ในโหมด Preview จะไม่มีคลาส selected หรือขอบเขียว
                 const isSel = !isPreviewMode && selectedIds.has(t.id);
                 card.className = `card ${isSel ? 'selected' : ''}`;
                 card.id = `card-${t.id}`;
@@ -793,7 +836,12 @@
                         <div class="card-subtitle">${t.en}</div>
                     </div>
                 `;
-                grid.appendChild(card);
+                
+                if (t.smallPack) {
+                    if (smallGrid) smallGrid.appendChild(card);
+                } else {
+                    if (largeGrid) largeGrid.appendChild(card);
+                }
             });
         }
 
@@ -805,34 +853,15 @@
                 return;
             }
             
-            const card = document.getElementById(`card-${id}`);
-            const t = themes.find(th => th.id === id);
+            // ในโหมดชำระเงินแล้ว (Paid Mode) จัดส่งรูปทั้งเซ็ตตามแพ็กเกจโดยอัตโนมัติ 
+            // ให้แตะการ์ดเพื่อซูมพรีวิวดูรูปใหญ่ได้ปกติ แต่ห้ามติ๊กเข้าติ๊กออก เนื่องจากจัดชุดฟิกซ์ไว้แล้ว
+            openZoom(e, id);
             
-            if (selectedIds.has(id)) {
-                selectedIds.delete(id);
-            } else {
-                if (selectedIds.size >= maxSelect) {
-                    alert(`เลือกครบ ${maxSelect} ธีมแล้วค่ะ หากต้องการเปลี่ยน กรุณากดเอาธีมที่ไม่ต้องการออกก่อนนะคะ 🙏`);
-                    return;
-                }
-                
-                // ตรวจสอบกฎการเลือกธีมยอดฮิต (Hit) สำหรับแพ็กเกจ 20 ธีม
-                if (maxSelect === 20 && t.bestSeller) {
-                    const selectedHits = Array.from(selectedIds).filter(sid => {
-                        const themeObj = themes.find(thObj => thObj.id === sid);
-                        return themeObj && themeObj.bestSeller;
-                    }).length;
-                    
-                    if (selectedHits >= 3) {
-                        alert(`ขออภัยค่ะ สำหรับแพ็กเกจ 20 ธีม จะสามารถเลือกธีมยอดฮิต (🔥 HIT) ได้สูงสุด 3 ธีมเท่านั้นค่ะ\n\n💡 แนะนำอัปเดตซื้อแพ็กเกจครบ 50 ธีม (เพียง 199 ฿) เพื่อสิทธิ์เลือกธีมฮิตทั้งหมดได้ไม่จำกัดและคุ้มค่าที่สุดค่ะ! 💖`);
-                        return;
-                    }
-                }
-                
-                selectedIds.add(id);
+            // แสดงข้อมูลช่วยเหลือเล็กน้อย
+            const t = themes.find(th => th.id === id);
+            if (maxSelect === 20 && !t.smallPack) {
+                alert(`💡 โน้ต: ธีมนี้เฉพาะสมาชิกที่ซื้อครบ 50 ธีมค่ะ\n\n(สำหรับแพ็กเกจ 20 ธีมที่คุณเลือก จะได้รับ 20 ธีมหลักในกรอบชุดเล็กทั้งหมด เรียบร้อยแล้วค่ะ สามารถกรอกชื่อ Facebook แล้วส่งรายการได้เลยค่ะ 🙏)`);
             }
-            updateCard(id);
-            updateProgress();
         }
 
         function updateCard(id) {
@@ -956,11 +985,21 @@
                 const optSize = parseInt(opt.textContent);
                 opt.classList.toggle('active', optSize === size);
             });
-            document.getElementById('randomBtn').textContent = `🎲 สุ่มเลือก ${maxSelect} ธีม (จัดธีมฮิตให้ก่อน)`;
 
-            if (selectedIds.size > maxSelect) {
-                const arr = Array.from(selectedIds);
-                selectedIds = new Set(arr.slice(0, maxSelect));
+            // ซ่อนปุ่มสุ่มในโหมดชำระเงินเพราะจัดชุดฟิกซ์ตายตัวมาให้เรียบร้อยแล้ว
+            const randomBtn = document.getElementById('randomBtn');
+            if (randomBtn) {
+                randomBtn.style.display = 'none';
+            }
+
+            if (!isPreviewMode) {
+                // เติมสินค้าเข้าเช็คลิสต์อัตโนมัติตามแพ็กเกจที่ชำระเงินมา
+                selectedIds.clear();
+                if (maxSelect === 20) {
+                    themes.filter(t => t.smallPack).forEach(t => selectedIds.add(t.id));
+                } else {
+                    themes.filter(t => t.age === currentFilter).forEach(t => selectedIds.add(t.id));
+                }
                 themes.forEach(t => updateCard(t.id));
             }
             updateProgress();
@@ -1091,9 +1130,7 @@
 
             if ([20, 40, 50].includes(size)) {
                 setPackage(size);
-                if (!isPreviewMode) {
-                    randomSelect();
-                } else {
+                if (isPreviewMode) {
                     selectedIds.clear(); // ล้างเช็คลิสต์ทั้งหมดออกในโหมด Preview เพื่อความสะอาดตา
                     themes.forEach(t => updateCard(t.id));
                     updateProgress();
