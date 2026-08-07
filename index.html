@@ -35,9 +35,19 @@
             position: absolute; top: 6px; left: 0; right: 0;
             font-size:16px; letter-spacing: 10px; opacity: 0.25;
         }
-        .hero-logo { font-family: 'Fredoka One', cursive; font-size:36px; background: linear-gradient(135deg, var(--coral), var(--teal)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .hero-thai { font-size:20px; font-weight: 700; color: var(--coral); margin: 2px 0 10px; }
-        .hero-desc { font-size:17px; color: var(--text-light); line-height: 1.6; max-width: 480px; margin: 0 auto 16px; }
+        .hero-banner-container {
+            max-width: 760px;
+            margin: 10px auto 20px;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            border: 3px solid rgba(255,255,255,0.6);
+        }
+        .hero-banner-img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
 
         /* Pricing Cards */
         .pricing-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 14px; }
@@ -247,6 +257,25 @@
             filter: grayscale(30%);
             cursor: not-allowed;
         }
+        /* Dynamic Mode Title Banner */
+        .mode-title-banner {
+            text-align: center;
+            margin: 22px auto 10px;
+            max-width: 600px;
+            padding: 10px 20px;
+        }
+        .mode-title-main {
+            font-family: 'Fredoka One', Sarabun, sans-serif;
+            font-weight: 800;
+            font-size: 32px;
+            color: var(--teal-dark);
+            margin-bottom: 6px;
+        }
+        .mode-title-sub {
+            font-family: 'Fredoka One', cursive;
+            font-size: 18px;
+            color: var(--text-light);
+        }
     </style>
 </head>
 <body>
@@ -254,9 +283,9 @@
 
     <!-- HERO -->
     <header class="hero">
-        <div class="hero-logo">Art & Grow</div>
-        <div class="hero-thai">สีสันปั้นสมอง</div>
-        <p class="hero-desc">สมุดระบายสีเสริมพัฒนาการ + คำศัพท์อังกฤษ + กิจกรรมฝึกสมอง + QR ฟังเสียง<br>📥 ไฟล์ PDF ปริ้นได้ไม่จำกัด!</p>
+        <div class="hero-banner-container">
+            <img src="pics/banner.png" alt="Art & Grow สีสันปั้นสมอง" class="hero-banner-img">
+        </div>
         <div class="pricing-row">
             <div class="price-card active" onclick="selectAgeGroup('3-6')">
                 <div class="price-age"><span class="age-dot dot-36"></span> 3-6 ปี (สมุดระบายสี)</div>
@@ -277,11 +306,14 @@
         <a href="https://www.facebook.com/profile.php?id=61592752235563" class="btn-contact" target="_blank">💬 สั่งซื้อที่เพจ Facebook</a>
     </header>
 
+    <!-- Dynamic Mode Title Banner -->
+    <div class="mode-title-banner" id="modeTitleBanner"></div>
+
     <!-- PRODUCT TYPE TABS -->
     <section class="type-section">
         <div class="type-tabs">
             <div class="type-tab active" onclick="switchType('coloring')">🎨 สมุดระบายสี</div>
-            <div class="type-tab" onclick="switchType('handwriting')">✏️ สมุดคัดลายมือ <span class="badge-soon">เร็วๆ นี้</span></div>
+            <div class="type-tab" onclick="switchType('handwriting')">✏️ สมุดคัดลายมือ <span class="badge-soon" style="background:var(--green);color:white;">NEW!</span></div>
             <div class="type-tab" onclick="switchType('worksheet')">📝 ใบงาน/แบบฝึกหัด <span class="badge-soon">เร็วๆ นี้</span></div>
         </div>
     </section>
@@ -290,11 +322,7 @@
     <div id="coloringSection">
         <section class="filter-section">
             <h1 class="filter-title">🎨 เลือก<span>ธีม</span>ที่ต้องการ</h1>
-            <div class="filter-tabs" id="filterTabs">
-                <div class="filter-tab active" onclick="filterAge('3-6')" data-age="3-6">👶 3-6 ปี (สมุดระบายสี) <span class="count" id="count-3-6">0</span></div>
-                <div class="filter-tab" onclick="filterAge('6-9')" data-age="6-9">🧒 6-9 ปี (Young Artist) <span class="count" id="count-6-9">0</span></div>
-                <div class="filter-tab" onclick="filterAge('9+')" data-age="9+">🧑 9+ ปี (Art Lab) <span class="count" id="count-9">0</span></div>
-            </div>
+
             <div class="package-section">
                 <span class="package-label">🎁 แพ็กเกจของคุณ:</span>
                 <div class="package-options">
@@ -308,22 +336,47 @@
         <div class="container"><div class="grid" id="productGrid"></div></div>
     </div>
 
-    <!-- HANDWRITING COMING SOON -->
-    <div id="handwritingSection" style="display:none;">
-        <div class="coming-soon">
-            <div class="coming-soon-icon">✏️</div>
-            <div class="coming-soon-title">สมุดคัดลายมือ — Coming Soon!</div>
-            <div class="coming-soon-text">ฝึกเขียนตามเส้นประ ทั้งภาษาไทยและภาษาอังกฤษ<br>เหมาะสำหรับเด็กอนุบาล - ป.3</div>
-            <div class="coming-soon-tags">
-                <span class="cs-tag">🇹🇭 พยัญชนะไทย ก-ฮ</span>
-                <span class="cs-tag">🇹🇭 สระ + วรรณยุกต์</span>
-                <span class="cs-tag">🇹🇭 ตัวเลขไทย ๑-๑๐</span>
-                <span class="cs-tag">🇬🇧 Alphabet A-Z</span>
-                <span class="cs-tag">🇬🇧 Numbers 1-20</span>
-                <span class="cs-tag">🇬🇧 Basic Words</span>
+    <!-- HANDWRITING SECTION -->
+    <div id="handwritingSection" style="display:none; padding: 40px 15px;">
+        <div class="container">
+            <h1 class="filter-title" style="margin-bottom:10px;">✏️ สมุดคัดลายมือปฐมวัย<span>เส้นประลอยตัว</span></h1>
+            <p class="section-subtitle" style="margin-bottom:40px;">แบบเรียนหัดคัดพยัญชนะและตัวเลขสำหรับน้องๆ 3-6 ปี สัดส่วนถูกต้อง แยกตัวชัดเจนพร้อมภาพประกอบ</p>
+            
+            <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; max-width: 800px; margin: 0 auto;">
+                <!-- Thai Book Card -->
+                <div class="card" style="border: 2px solid var(--purple); cursor: default; transform: none; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                    <div class="card-img" style="aspect-ratio: 1.414; height: 260px;">
+                        <img src="../../03_Handwriting_Books_Age_3_6/thai_consonant_handwriting_book/pages/page_00_cover.jpg" alt="Thai Handwriting Cover" style="object-fit: cover;">
+                        <span class="age-badge age-3-6">3-6 ปี</span>
+                    </div>
+                    <div class="card-info" style="text-align: left; padding: 18px;">
+                        <div class="card-title" style="font-size: 19px; color: var(--purple);">สมุดคัดพยัญชนะและตัวเลขไทย</div>
+                        <div class="card-subtitle" style="font-size: 14px; margin-bottom: 12px;">Thai Consonant & Thai Numbers (๐-๙)</div>
+                        <p style="font-size: 13.5px; color: var(--text-light); line-height: 1.5; margin-bottom: 18px;">แบบฝึกคัดหัดเขียน ก-ฮ รวม 44 ตัว และตัวเลขไทยโบราณ ๐-๙ สัดส่วนฟอนต์ลอยเหนือเส้นบรรทัด 4px เห็นแนวเขียนชัดเจน 100% (พิมพ์ A4 รวม 12 หน้า)</p>
+                        <div style="display: flex; gap: 8px;">
+                            <a href="../art-and-grow-handwriting-preview/index.html?book=thai" class="btn-contact" style="flex: 1; text-align: center; margin-top: 0; padding: 8px 12px; font-size: 14px; background: linear-gradient(135deg, var(--teal), var(--teal-dark)); box-shadow: none;">🔍 พรีวิวเปิดดู</a>
+                            <a href="../../04_Compiled_PDFs/Thai_Consonant_Handwriting_Book.pdf" class="btn-contact download-btn" style="flex: 1; text-align: center; margin-top: 0; padding: 8px 12px; font-size: 14px; background: linear-gradient(135deg, var(--purple), #8B5CF6); box-shadow: none;" download>📥 ดาวน์โหลด PDF</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- English Book Card -->
+                <div class="card" style="border: 2px solid var(--coral); cursor: default; transform: none; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                    <div class="card-img" style="aspect-ratio: 1.414; height: 260px;">
+                        <img src="../../03_Handwriting_Books_Age_3_6/english_alphabet_handwriting_book/pages/page_00_cover.jpg" alt="English Handwriting Cover" style="object-fit: cover;">
+                        <span class="age-badge age-3-6">3-6 ปี</span>
+                    </div>
+                    <div class="card-info" style="text-align: left; padding: 18px;">
+                        <div class="card-title" style="font-size: 19px; color: var(--coral);">สมุดคัดอักษรภาษาอังกฤษและตัวเลข</div>
+                        <div class="card-subtitle" style="font-size: 14px; margin-bottom: 12px;">English Alphabet & Arabic Numbers (0-9)</div>
+                        <p style="font-size: 13.5px; color: var(--text-light); line-height: 1.5; margin-bottom: 18px;">แบบฝึกคัดเขียนอักษร A-Z และตัวเลข 0-9 หน้าตัวเลขมีดาวนับปริมาณ และคำศัพท์ภาษาอังกฤษสะกดไทยลอยพ้นรอยทับเส้นบรรทัดชัดแจ๋ว (พิมพ์ A4 รวม 38 หน้า)</p>
+                        <div style="display: flex; gap: 8px;">
+                            <a href="../art-and-grow-handwriting-preview/index.html?book=english" class="btn-contact" style="flex: 1; text-align: center; margin-top: 0; padding: 8px 12px; font-size: 14px; background: linear-gradient(135deg, var(--teal), var(--teal-dark)); box-shadow: none;">🔍 พรีวิวเปิดดู</a>
+                            <a href="../../04_Compiled_PDFs/English_Alphabet_Handwriting_Book.pdf" class="btn-contact download-btn" style="flex: 1; text-align: center; margin-top: 0; padding: 8px 12px; font-size: 14px; background: linear-gradient(135deg, var(--coral), var(--orange)); box-shadow: none;" download>📥 ดาวน์โหลด PDF</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <br>
-            <a href="https://www.facebook.com/profile.php?id=61592752235563" class="btn-contact" target="_blank">💬 กดติดตามเพจ รอรับแจ้งเตือน!</a>
         </div>
     </div>
 
@@ -503,7 +556,6 @@
         }
         function filterAge(age) {
             currentFilter = age;
-            document.querySelectorAll('.filter-tab').forEach(t => t.classList.toggle('active', t.dataset.age === age));
             document.querySelectorAll('.card').forEach(c => {
                 const cid = parseInt(c.id.replace('card-',''));
                 const th = themes.find(t => t.id === cid);
@@ -619,9 +671,12 @@
 
         // ====== INIT COUNTS ======
         function initCounts() {
-            document.getElementById('count-3-6').textContent = themes.filter(t => t.age === '3-6').length;
-            document.getElementById('count-6-9').textContent = themes.filter(t => t.age === '6-9').length;
-            document.getElementById('count-9').textContent = themes.filter(t => t.age === '9+').length;
+            const el36 = document.getElementById('count-3-6');
+            const el69 = document.getElementById('count-6-9');
+            const el9 = document.getElementById('count-9');
+            if (el36) el36.textContent = themes.filter(t => t.age === '3-6').length;
+            if (el69) el69.textContent = themes.filter(t => t.age === '6-9').length;
+            if (el9) el9.textContent = themes.filter(t => t.age === '9+').length;
         }
 
         document.addEventListener('keydown', e => { if(e.key==='Escape'){closeZoom();closeSuccess();} });
@@ -639,28 +694,64 @@
             const pkg = params.get('pkg') || params.get('package');
             const age = params.get('age');
             const preview = params.get('preview');
+            const type = params.get('type') || params.get('tab');
 
-            if (preview === 'true' || pkg === 'preview') {
+            // 1. ตรวจสอบโหมดพรีวิว (Preview Mode)
+            // หากไม่มีพารามิเตอร์ pkg ระบุสิทธิ์การสั่งซื้อ บังคับเข้าสู่โหมดพรีวิวโดยอัตโนมัติเพื่อความปลอดภัย
+            if (!pkg || pkg === 'preview' || (preview && ['true', '3-6', '6-9', '9+', '20', '50'].includes(preview))) {
                 isPreviewMode = true;
-                applyPreviewMode();
             }
 
+            // 2. กรองข้อมูลสินค้าตามประเภท (Type/Tab) เช่น coloring, handwriting
+            if (type && ['coloring', 'handwriting', 'worksheet'].includes(type)) {
+                switchType(type);
+            }
+
+            // 3. กรองอายุตามพารามิเตอร์ age หรือ preview
+            let targetAge = '3-6'; // ค่าเริ่มต้น
             if (age && ['3-6', '6-9', '9+'].includes(age)) {
-                filterAge(age);
-                document.querySelectorAll('.price-card').forEach(c => c.classList.remove('active'));
-                document.querySelectorAll('.price-card').forEach(c => {
-                    if (c.innerHTML.includes(age)) c.classList.add('active');
-                });
+                targetAge = age;
+            } else if (preview && ['3-6', '6-9', '9+'].includes(preview)) {
+                targetAge = preview;
+            }
+            filterAge(targetAge);
+            document.querySelectorAll('.price-card').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.price-card').forEach(c => {
+                if (c.innerHTML.includes(targetAge)) c.classList.add('active');
+            });
+
+            // 4. จัดการขนาดแพ็กเกจ (กรณีสุ่มเลือกธีมตั้งต้นให้ทั้งโหมดปกติและโหมดพรีวิว)
+            let size = 20; // ค่าเริ่มต้น
+            if (pkg && pkg !== 'preview') {
+                size = parseInt(pkg);
+            } else if (preview === '20' || preview === '50') {
+                size = parseInt(preview);
             }
 
-            if (pkg && pkg !== 'preview') {
-                const size = parseInt(pkg);
-                if ([20, 40, 50].includes(size)) {
-                    setPackage(size);
+            if ([20, 40, 50].includes(size)) {
+                setPackage(size);
+                if (!isPreviewMode) {
                     randomSelect();
-                    isLockedMode = true;
-                    applyLockMode();
+                } else {
+                    selectedIds.clear(); // ล้างเช็คลิสต์ทั้งหมดออกในโหมด Preview เพื่อความสะอาดตา
+                    themes.forEach(t => updateCard(t.id));
+                    updateProgress();
                 }
+            }
+            
+            // ในกรณีโหมด Preview ทั่วไปที่ไม่มีระบุแพ็กเกจ size
+            if (isPreviewMode) {
+                selectedIds.clear();
+                themes.forEach(t => updateCard(t.id));
+                updateProgress();
+            }
+
+            // 5. บังคับการจัดหน้าตามโหมดอย่างเข้มงวด
+            if (isPreviewMode) {
+                applyPreviewLayout(targetAge);
+            } else if (pkg || age) {
+                isLockedMode = true;
+                applyPaidLayout(targetAge);
             }
         }
         function applyLockMode() {
@@ -670,15 +761,83 @@
                 });
             }
         }
-        function applyPreviewMode() {
-            if (isPreviewMode) {
-                document.getElementById('bottomBar').style.display = 'none';
+        function applyPreviewLayout(targetAge) {
+            // ตั้งค่าแบนเนอร์แสดงชื่อโหมด Preview
+            const banner = document.getElementById('modeTitleBanner');
+            if (banner) {
+                banner.innerHTML = `
+                    <div class="mode-title-main" style="color: var(--coral);">Preview</div>
+                    <div class="mode-title-sub">โหมดดูตัวอย่างลายเส้นระบายสี</div>
+                `;
+            }
+
+            // ซ่อนราคาด้านบน
+            const pricingRow = document.querySelector('.pricing-row');
+            if (pricingRow) pricingRow.style.display = 'none';
+            
+            // ซ่อนแถบฟิลเตอร์อายุ หัวข้อ และการควบคุมซื้อทั้งหมดออกไปเลย
+            const filterSection = document.querySelector('.filter-section');
+            if (filterSection) filterSection.style.display = 'none';
+            
+            // ซ่อนแถบส่งรายการด้านล่าง
+            document.getElementById('bottomBar').style.display = 'none';
+            
+            // ซ่อนปุ่มดาวน์โหลดไฟล์ PDF จริงในหน้าพรีวิว
+            document.querySelectorAll('.download-btn').forEach(el => {
+                el.style.display = 'none';
+            });
+            
+            // จัดระเบียบแท็บประเภทสินค้า (สมุดระบายสี, คัดลายมือ, ใบงาน)
+            const tabs = document.querySelectorAll('.type-tab');
+            if (tabs.length >= 3) {
+                if (targetAge === '3-6') {
+                    tabs[2].style.display = 'none'; // ซ่อนใบงาน
+                } else {
+                    tabs[1].style.display = 'none'; // ซ่อนคัดลายมือ
+                    tabs[2].style.display = 'none'; // ซ่อนใบงาน
+                }
+            }
+            
+            // ล็อกปุ่มกดแถบประเภทสินค้าที่เหลือ
+            document.querySelectorAll('.type-tabs').forEach(el => {
+                el.classList.add('locked-interaction');
+            });
+            
+            document.body.style.paddingBottom = '40px';
+        }
+        function applyPaidLayout(targetAge) {
+            // ตั้งค่าแบนเนอร์แสดงชื่อโหมดเลือกธีม
+            const banner = document.getElementById('modeTitleBanner');
+            if (banner) {
+                banner.innerHTML = `
+                    <div class="mode-title-main" style="font-family: 'Fredoka One', Sarabun, sans-serif; font-weight: 800;">เลือกธีม</div>
+                    <div class="mode-title-sub" style="font-family: 'Fredoka One', cursive; font-size: 18px; color: var(--teal-dark);">Theme selection</div>
+                `;
+            }
+
+            // ซ่อนราคาและส่วนแพ็กเกจ
+            const pricingRow = document.querySelector('.pricing-row');
+            if (pricingRow) pricingRow.style.display = 'none';
+            const pkgSection = document.querySelector('.package-section');
+            if (pkgSection) pkgSection.style.display = 'none';
+            
+            // ซ่อนแถบฟิลเตอร์อายุออกไปเลย เพื่อไม่ให้สลับ
+            const filterTabs = document.getElementById('filterTabs');
+            if (filterTabs) filterTabs.style.display = 'none';
+            
+            // ซ่อนแถบเลือกประเภทสินค้าทั้งหมด (เหลือแต่สินค้าหลักที่จ่ายเงินเข้ามาเลือก)
+            const typeSection = document.querySelector('.type-section');
+            if (typeSection) typeSection.style.display = 'none';
+            
+            // แสดงปุ่มสุ่มและแถบสั่งซื้อ
+            document.getElementById('randomBtn').style.display = '';
+            document.getElementById('bottomBar').style.display = '';
+            
+            // ตรวจสอบกรณีลูกค้าจ่ายเงินซื้อสมุดคัดลายมือ (type === handwriting) ให้ซ่อนปุ่มสุ่ม
+            const params = new URLSearchParams(window.location.search);
+            const type = params.get('type') || params.get('tab');
+            if (type === 'handwriting') {
                 document.getElementById('randomBtn').style.display = 'none';
-                const pricingRow = document.querySelector('.pricing-row');
-                if (pricingRow) pricingRow.style.display = 'none';
-                const pkgSection = document.querySelector('.package-section');
-                if (pkgSection) pkgSection.style.display = 'none';
-                document.body.style.paddingBottom = '40px';
             }
         }
         checkUrlParams();
