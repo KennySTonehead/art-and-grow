@@ -524,7 +524,7 @@
     <!-- HERO -->
     <header class="hero">
         <div class="hero-banner-container">
-            <img src="pics/banner.jpg" alt="Art & Grow สีสันปั้นสมอง" class="hero-banner-img">
+            <img src="banner.jpg" alt="Art & Grow สีสันปั้นสมอง" class="hero-banner-img">
         </div>
         <div class="pricing-row">
             <div class="price-card active" onclick="selectAgeGroup('3-6')">
@@ -542,6 +542,14 @@
                 <div class="price-row"><span>20 ธีม</span> <span class="price">169 ฿</span></div>
                 <div class="price-row"><span>ครบ 40 ธีม</span> <span class="price">199 ฿</span> <span class="best">คุ้มสุด!</span></div>
             </div>
+        </div>
+        <!-- Comparison Hint Box -->
+        <div class="pricing-hint-box" style="background: rgba(255, 230, 109, 0.15); border: 1.5px dashed #EAB308; border-radius: 12px; padding: 10px 14px; max-width: 650px; margin: 8px auto 14px; font-size: 13.5px; color: #854D0E; text-align: left; line-height: 1.5; font-weight: 500;">
+            <div style="font-weight: 800; font-size: 14.5px; margin-bottom: 3px; display: flex; align-items: center; gap: 4px;">
+                💡 เปรียบเทียบความคุ้มค่าของแพ็กเกจ:
+            </div>
+            • <b>แพ็กเกจ 20 ธีม (159 ฿)</b>: เลือกธีมทั่วไปได้อิสระ แต่จำกัดการเลือกธีมยอดฮิต (🔥 HIT) ได้สูงสุด <b>3 ธีม</b> เท่านั้น<br>
+            • <b>แพ็กเกจครบเซ็ต (199 ฿)</b>: ได้รับธีมทั้งหมด รวมถึงได้ธีมยอดฮิต (🔥 HIT) ยอดนิยมครบทั้ง 10 ธีมแบบคุ้มค่าที่สุด!
         </div>
         <a href="https://www.facebook.com/profile.php?id=61592752235563" class="btn-contact" target="_blank">💬 สั่งซื้อที่เพจ Facebook</a>
     </header>
@@ -779,6 +787,8 @@
             }
             
             const card = document.getElementById(`card-${id}`);
+            const t = themes.find(th => th.id === id);
+            
             if (selectedIds.has(id)) {
                 selectedIds.delete(id);
             } else {
@@ -786,6 +796,20 @@
                     alert(`เลือกครบ ${maxSelect} ธีมแล้วค่ะ หากต้องการเปลี่ยน กรุณากดเอาธีมที่ไม่ต้องการออกก่อนนะคะ 🙏`);
                     return;
                 }
+                
+                // ตรวจสอบกฎการเลือกธีมยอดฮิต (Hit) สำหรับแพ็กเกจ 20 ธีม
+                if (maxSelect === 20 && t.bestSeller) {
+                    const selectedHits = Array.from(selectedIds).filter(sid => {
+                        const themeObj = themes.find(thObj => thObj.id === sid);
+                        return themeObj && themeObj.bestSeller;
+                    }).length;
+                    
+                    if (selectedHits >= 3) {
+                        alert(`ขออภัยค่ะ สำหรับแพ็กเกจ 20 ธีม จะสามารถเลือกธีมยอดฮิต (🔥 HIT) ได้สูงสุด 3 ธีมเท่านั้นค่ะ\n\n💡 แนะนำอัปเดตซื้อแพ็กเกจครบ 50 ธีม (เพียง 199 ฿) เพื่อสิทธิ์เลือกธีมฮิตทั้งหมดได้ไม่จำกัดและคุ้มค่าที่สุดค่ะ! 💖`);
+                        return;
+                    }
+                }
+                
                 selectedIds.add(id);
             }
             updateCard(id);
@@ -812,7 +836,18 @@
 
             const current = selectedIds.size;
             
-            if (titleEl) titleEl.textContent = `📚 เลือกธีม (เลือกได้อีก ${maxSelect - current} ธีม)`;
+            // นับจำนวนธีม Hit ที่เลือกอยู่
+            const currentHits = Array.from(selectedIds).filter(sid => {
+                const themeObj = themes.find(thObj => thObj.id === sid);
+                return themeObj && themeObj.bestSeller;
+            }).length;
+
+            let progressTitle = `📚 เลือกธีม (เลือกได้อีก ${maxSelect - current} ธีม)`;
+            if (maxSelect === 20) {
+                progressTitle = `📚 เลือกธีม (เลือกได้อีก ${maxSelect - current} ธีม) | เลือกธีมฮิตแล้ว 🔥 ${currentHits}/3`;
+            }
+            
+            if (titleEl) titleEl.textContent = progressTitle;
             if (textEl) textEl.textContent = `${current} / ${maxSelect}`;
             
             if (fillEl) {
@@ -947,10 +982,22 @@
                 return array;
             };
 
-            const combined = [...shuffle(bests), ...shuffle(regs)];
-            const selectCount = Math.min(maxSelect, combined.length);
-            for (let i = 0; i < selectCount; i++) {
-                selectedIds.add(combined[i].id);
+            const shuffledBests = shuffle([...bests]);
+            const shuffledRegs = shuffle([...regs]);
+
+            if (maxSelect === 20) {
+                // แพ็กเกจ 20 ธีม: เลือก Hit ได้ 3 ธีม และทั่วไป 17 ธีม
+                const selectedBests = shuffledBests.slice(0, 3);
+                const selectedRegs = shuffledRegs.slice(0, 17);
+                const combined = [...selectedBests, ...selectedRegs];
+                combined.forEach(t => selectedIds.add(t.id));
+            } else {
+                // แพ็กเกจอื่นๆ (เช่น 50 ธีม): เลือกทั้งหมดตามปกติ
+                const combined = [...shuffledBests, ...shuffledRegs];
+                const selectCount = Math.min(maxSelect, combined.length);
+                for (let i = 0; i < selectCount; i++) {
+                    selectedIds.add(combined[i].id);
+                }
             }
 
             themes.forEach(t => updateCard(t.id));
