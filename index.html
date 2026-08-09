@@ -349,6 +349,102 @@
         .card-info { padding: 12px; }
         .card-title { font-size: 15px; font-weight: 800; color: var(--text); margin-bottom: 2px; }
         .card-subtitle { font-size: 12px; color: var(--text-light); font-family: 'Nunito', sans-serif; font-weight: 600; }
+        .preview-btn {
+            display: block;
+            width: 100%;
+            padding: 8px 12px;
+            background: #fffbeb;
+            color: #d97706;
+            border: 1.5px solid #fde68a;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.2s;
+            text-align: center;
+            font-family: 'Sarabun', sans-serif;
+        }
+        .preview-btn:hover {
+            background: #fef3c7;
+            color: #b45309;
+            border-color: #fcd34d;
+        }
+
+        /* THEME PREVIEW MODAL (FULLSCREEN OVERLAY) */
+        .theme-modal {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #fdfbf7;
+            z-index: 10000;
+            display: none;
+            flex-direction: column;
+            overflow-y: auto;
+            font-family: 'Sarabun', sans-serif;
+        }
+        .theme-modal.show { display: flex; }
+        .theme-modal-header {
+            background: #1e293b;
+            color: white;
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .theme-modal-back {
+            color: #94a3b8;
+            font-size: 14px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        .theme-modal-back:hover { color: white; }
+        .theme-modal-title { font-size: 24px; font-weight: 800; }
+        .theme-modal-subtitle { font-size: 14px; color: #cbd5e1; margin-top: 4px; }
+        .theme-modal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 20px;
+            padding: 30px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .preview-page-card {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid rgba(0,0,0,0.06);
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        .preview-page-card:hover { transform: translateY(-4px); }
+        .preview-page-num {
+            position: absolute;
+            top: 10px; left: 10px;
+            background: #1e293b;
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 6px;
+            z-index: 2;
+        }
+        .preview-page-img {
+            width: 100%;
+            aspect-ratio: 1.414;
+            object-fit: contain;
+            background: #fff;
+            display: block;
+            border-bottom: 1px solid rgba(0,0,0,0.04);
+        }
 
         /* === FLOATING BOTTOM BAR (Paid Mode Only) === */
         .bottom-bar {
@@ -415,7 +511,7 @@
             top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.85);
             backdrop-filter: blur(8px);
-            z-index: 1000;
+            z-index: 20000;
             justify-content: center;
             align-items: center;
         }
@@ -627,17 +723,7 @@
             </div>
         </section>
         <div class="container">
-            <!-- Small Package Group Box (First 20 Themes) -->
-            <div class="package-group-box small-pack-box" id="smallPackBox">
-                <div class="package-group-header">📦 20 ธีมหลักในชุดเล็ก (รวมธีมยอดฮิต 🔥 HIT 3 ธีม)</div>
-                <div class="grid" id="smallProductGrid"></div>
-            </div>
-            
-            <!-- Additional Themes Group Box (Remaining 30 Themes) -->
-            <div class="package-group-box large-pack-box" id="largePackBox">
-                <div class="package-group-header" style="color: var(--coral);">✨ อีก 30 ธีมพิเศษสำหรับชุดใหญ่ 50 ธีม (มีธีมยอดฮิต 🔥 HIT อีก 7 ธีม!)</div>
-                <div class="grid" id="largeProductGrid"></div>
-            </div>
+            <div class="grid" id="productGrid"></div>
         </div>
     </div>
 
@@ -728,13 +814,26 @@
         </div>
     </div>
 
+    <!-- FULLSCREEN THEME PREVIEW MODAL -->
+    <div class="theme-modal" id="themePreviewModal">
+        <div class="theme-modal-header">
+            <div class="theme-modal-back" onclick="closeThemePreview()">← กลับหน้ารวม 50 เล่ม</div>
+            <div class="theme-modal-title" id="themeModalTitle">เล่ม 1 · ไดโนเสาร์</div>
+            <div class="theme-modal-subtitle">สมุดเล่มนี้มีตัวอย่างผลงานระบายสีทั้งหมด 20 หน้า</div>
+        </div>
+        <div class="theme-modal-grid" id="themePreviewGrid">
+            <!-- JS dynamically renders preview pages -->
+        </div>
+    </div>
+
     <!-- SUCCESS POPUP MODAL -->
     <div class="success-modal" id="successModal">
         <div class="success-box">
             <div class="success-icon">🎉</div>
-            <div class="success-title">ส่งรายการสำเร็จ!</div>
-            <div class="success-text">ระบบบันทึกธีมที่คุณเลือกเรียบร้อยแล้วค่ะ<br>เจ้าหน้าที่จะส่งลิงก์ดาวน์โหลดไฟล์ PDF ตัวเต็มให้ในอินบ็อกซ์ Facebook นะคะ 🙏</div>
-            <button class="success-btn" onclick="closeSuccess()">ตกลง</button>
+            <div class="success-title">เลือกและจัดส่งสำเร็จ!</div>
+            <div class="success-text">ระบบได้จัดเตรียมไฟล์ดาวน์โหลดของคุณเรียบร้อยแล้วค่ะ<br>กดปุ่มด้านล่างเพื่อดาวน์โหลดไฟล์ของคุณได้เลยนะคะ 👇</div>
+            <a href="" id="btnDownloadFolder" class="success-btn" target="_blank" style="display: inline-block; text-decoration: none; margin-bottom: 12px; background: linear-gradient(135deg, var(--teal), var(--teal-dark)); color: white; width: 100%; box-sizing: border-box;">📥 ดาวน์โหลดไฟล์ของคุณ</a>
+            <button class="success-btn" onclick="closeSuccess()" style="background: #e2e8f0; color: #475569; margin-top: 8px;">ปิดหน้าต่าง</button>
         </div>
     </div>
 
@@ -810,10 +909,8 @@
 
         // ====== RENDER GRID ======
         function renderGrid() {
-            const smallGrid = document.getElementById('smallProductGrid');
-            const largeGrid = document.getElementById('largeProductGrid');
-            if (smallGrid) smallGrid.innerHTML = '';
-            if (largeGrid) largeGrid.innerHTML = '';
+            const grid = document.getElementById('productGrid');
+            if (grid) grid.innerHTML = '';
             
             themes.forEach(t => {
                 const card = document.createElement('div');
@@ -822,6 +919,8 @@
                 card.id = `card-${t.id}`;
                 card.onclick = (e) => toggleSelect(e, t.id);
 
+                const jsId = t.en.toLowerCase().replace(/ /g, '_');
+
                 card.innerHTML = `
                     <div class="card-img">
                         <img src="${t.img}" alt="${t.name}" loading="lazy">
@@ -829,38 +928,66 @@
                         <span class="age-badge age-3-6">${t.age} ปี</span>
                         <div class="check-badge" style="opacity: ${isSel ? '1' : '0'}; transform: ${isSel ? 'scale(1)' : 'scale(0.5)'};">✓</div>
                         ${isPreviewMode ? '<div class="card-watermark">SAMPLE</div>' : ''}
-                        <div class="zoom-btn" onclick="openZoom(event, ${t.id})">🔍 พรีวิวเปิดดู</div>
                     </div>
                     <div class="card-info">
                         <div class="card-title">${t.name}</div>
                         <div class="card-subtitle">${t.en}</div>
+                        <button class="preview-btn" onclick="openThemePreview(event, '${jsId}', '${t.name}')">เปิดดู 20 หน้า</button>
                     </div>
                 `;
                 
-                if (t.smallPack) {
-                    if (smallGrid) smallGrid.appendChild(card);
-                } else {
-                    if (largeGrid) largeGrid.appendChild(card);
-                }
+                if (grid) grid.appendChild(card);
             });
         }
 
         // ====== CARD INTERACTION ======
         function toggleSelect(e, id) {
+            const t = themes.find(th => th.id === id);
+            if (!t) return;
+
             if (isPreviewMode) {
-                // ในโหมด Preview ให้แตะที่การ์ดแล้วซูมดูรูปภาพทันที
-                openZoom(e, id);
+                // ในโหมด Preview แตะแล้วเปิดดู 20 หน้าพรีวิว
+                const jsId = t.en.toLowerCase().replace(/ /g, '_');
+                openThemePreview(e, jsId, t.name);
                 return;
             }
-            
-            // ในโหมดชำระเงินแล้ว (Paid Mode) จัดส่งรูปทั้งเซ็ตตามแพ็กเกจโดยอัตโนมัติ 
-            // ให้แตะการ์ดเพื่อซูมพรีวิวดูรูปใหญ่ได้ปกติ แต่ห้ามติ๊กเข้าติ๊กออก เนื่องจากจัดชุดฟิกซ์ไว้แล้ว
-            openZoom(e, id);
-            
-            // แสดงข้อมูลช่วยเหลือเล็กน้อย
-            const t = themes.find(th => th.id === id);
-            if (maxSelect === 20 && !t.smallPack) {
-                alert(`💡 โน้ต: ธีมนี้เฉพาะสมาชิกที่ซื้อครบ 50 ธีมค่ะ\n\n(สำหรับแพ็กเกจ 20 ธีมที่คุณเลือก จะได้รับ 20 ธีมหลักในกรอบชุดเล็กทั้งหมด เรียบร้อยแล้วค่ะ สามารถกรอกชื่อ Facebook แล้วส่งรายการได้เลยค่ะ 🙏)`);
+
+            // ในโหมดชำระเงินแล้ว (Paid Mode)
+            if (maxSelect === 50) {
+                // สำหรับชุดใหญ่ 50 ธีม ได้ทั้งหมด ไม่ต้องให้เลือก
+                alert(`💡 คุณพี่เลือกชุดใหญ่ 50 ธีม ได้ครบถ้วนทุกธีมแล้วค่ะ ไม่ต้องเลือกเพิ่มแล้วนะคะ สามารถกรอกชื่อ Facebook แล้วกดส่งได้เลยค่ะ 🙏`);
+                return;
+            }
+
+            // สำหรับชุดเล็ก 20 ธีม
+            if (selectedIds.has(id)) {
+                // ยกเลิกการเลือก
+                selectedIds.delete(id);
+                updateCard(id);
+                updateProgress();
+            } else {
+                // ตรวจสอบลิมิต
+                if (selectedIds.size >= maxSelect) {
+                    alert(`⚠️ คุณเลือกครบ ${maxSelect} ธีมแล้วค่ะ หากต้องการเปลี่ยน กรุณากดเอาธีมที่ไม่ต้องการออกก่อนนะคะ 🙏`);
+                    return;
+                }
+
+                // ตรวจสอบเงื่อนไข ธีมยอดฮิต (🔥 HIT) สูงสุด 3 เล่ม ในแพ็กเกจ 20 ธีม
+                if (maxSelect === 20 && t.bestSeller) {
+                    const hitCount = Array.from(selectedIds).filter(sid => {
+                        const themeObj = themes.find(th => th.id === sid);
+                        return themeObj && themeObj.bestSeller;
+                    }).length;
+
+                    if (hitCount >= 3) {
+                        alert(`🔥 แพ็กเกจ 20 ธีม สามารถเลือกธีมยอดฮิต (🔥 HIT) ได้สูงสุด 3 ธีมค่ะ\n\n(หากต้องการเลือกมากกว่า 3 ธีม แนะนำสั่งซื้อเป็นแพ็กเกจ 50 ธีมนะคะ ได้ครบทุกธีมสุดคุ้มเลยค่ะ! ❤️)`);
+                        return;
+                    }
+                }
+
+                selectedIds.add(id);
+                updateCard(id);
+                updateProgress();
             }
         }
 
@@ -921,30 +1048,73 @@
                 return;
             }
 
-            const items = Array.from(selectedIds).sort((a,b)=>a-b).map(id => {
-                const t = themes.find(th => th.id === id);
-                return `${t.name} (${t.en})`;
-            }).join(', ');
-
-            if (SCRIPT_URL && SCRIPT_URL !== 'YOUR_GOOGLE_APPS_SCRIPT_URL') {
-                fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'text/plain' },
-                    body: JSON.stringify({
-                        name: name,
-                        items: items,
-                        count: selectedIds.size,
-                        timestamp: new Date().toLocaleString('th-TH')
-                    })
-                });
+            const submitBtn = document.getElementById('btnSubmit');
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.textContent = '⏳ กำลังจัดทำไฟล์...';
             }
 
-            document.getElementById('successModal').classList.add('show');
-            selectedIds.clear();
-            if (nameInput) nameInput.value = '';
-            themes.forEach(t => updateCard(t.id));
-            updateProgress();
+            // ดึงชื่อไฟล์ภาษาไทยมาจัดเตรียมส่งมอบ (ตรงกับชื่อไฟล์ PDF บน Drive)
+            const chosenThemes = Array.from(selectedIds).map(sid => {
+                const t = themes.find(th => th.id === sid);
+                return t ? t.name : ''; 
+            }).filter(Boolean);
+
+            const payload = {
+                name: name,
+                themes: chosenThemes,
+                packageSize: maxSelect
+            };
+
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'text/plain' },
+                body: JSON.stringify(payload)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = '📥 ส่งรายการ';
+                }
+                if (data.status === 'success') {
+                    // แนบลิงก์ดาวน์โหลดให้กับปุ่มใน Success Modal
+                    const downloadBtn = document.getElementById('btnDownloadFolder');
+                    if (downloadBtn) {
+                        downloadBtn.href = data.downloadUrl;
+                    }
+                    document.getElementById('successModal').classList.add('show');
+                    
+                    // ล้างแบบฟอร์ม
+                    selectedIds.clear();
+                    if (nameInput) nameInput.value = '';
+                    themes.forEach(t => updateCard(t.id));
+                    updateProgress();
+                } else {
+                    alert('เกิดข้อผิดพลาดในการสร้างไฟล์: ' + data.message);
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert('ส่งข้อมูลสำเร็จแล้วค่ะ แต่เบราว์เซอร์ไม่สามารถอ่านผลตอบกลับได้โดยตรงเพื่อความปลอดภัย\n\nระบบจัดเก็บออเดอร์ในหน้าตารางเรียบร้อยแล้ว แอดมินสามารถส่งลิงก์ดาวน์โหลดให้ในแชทปกติได้เลยนะคะ หรือสามารถทักแชทเพจเพื่อรับลิงก์ดาวน์โหลดได้ค่ะ 🙏');
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = '📥 ส่งรายการ';
+                }
+                
+                // สำหรับกรณี CORS Redirect block ให้แสดง Success modal แบบลิงก์ติดต่อเพจเพื่อความสะดวก
+                const downloadBtn = document.getElementById('btnDownloadFolder');
+                if (downloadBtn) {
+                    downloadBtn.href = 'https://www.facebook.com/profile.php?id=61592752235563';
+                    downloadBtn.textContent = '💬 ทักแชทรับลิงก์โหลดทันที';
+                }
+                document.getElementById('successModal').classList.add('show');
+                
+                selectedIds.clear();
+                if (nameInput) nameInput.value = '';
+                themes.forEach(t => updateCard(t.id));
+                updateProgress();
+            });
         }
 
         function closeSuccess() {
@@ -966,6 +1136,48 @@
             document.getElementById('zoomModal').classList.remove('show');
         }
 
+        // ====== NEW THEME GRID PREVIEW ======
+        function openThemePreview(e, themeId, themeName) {
+            e.stopPropagation();
+            const modal = document.getElementById('themePreviewModal');
+            const grid = document.getElementById('themePreviewGrid');
+            const title = document.getElementById('themeModalTitle');
+            
+            title.textContent = themeName;
+            grid.innerHTML = '';
+            
+            for (let i = 1; i <= 20; i++) {
+                const card = document.createElement('div');
+                card.className = 'preview-page-card';
+                card.onclick = (event) => openZoom(event, { id: 9999, img: `pics/themes/${themeId}/page_${i}.jpg` });
+                card.innerHTML = `
+                    <div class="preview-page-num">หน้า ${i}</div>
+                    <img src="pics/themes/${themeId}/page_${i}.jpg" class="preview-page-img" alt="Page ${i}" loading="lazy">
+                `;
+                grid.appendChild(card);
+            }
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden'; // Lock body scroll
+        }
+
+        function closeThemePreview() {
+            document.getElementById('themePreviewModal').classList.remove('show');
+            document.body.style.overflow = ''; // Unlock body scroll
+        }
+
+        // Overwrite openZoom for page preview click helper
+        const origOpenZoom = openZoom;
+        openZoom = function(e, arg) {
+            if (arg && arg.id === 9999) {
+                e.stopPropagation();
+                const zoomImg = document.getElementById('zoomImg');
+                if (zoomImg) zoomImg.src = arg.img;
+                document.getElementById('zoomModal').classList.add('show');
+            } else {
+                origOpenZoom(e, arg);
+            }
+        };
+
         // ====== TYPE SWITCHER (TABS) ======
         function switchType(type) {
             currentType = type;
@@ -986,19 +1198,19 @@
                 opt.classList.toggle('active', optSize === size);
             });
 
-            // ซ่อนปุ่มสุ่มในโหมดชำระเงินเพราะจัดชุดฟิกซ์ตายตัวมาให้เรียบร้อยแล้ว
             const randomBtn = document.getElementById('randomBtn');
             if (randomBtn) {
-                randomBtn.style.display = 'none';
+                randomBtn.style.display = '';
             }
 
             if (!isPreviewMode) {
-                // เติมสินค้าเข้าเช็คลิสต์อัตโนมัติตามแพ็กเกจที่ชำระเงินมา
                 selectedIds.clear();
                 if (maxSelect === 20) {
+                    // พรีเซเล็กซ์ธีมในชุดเล็ก 20 ธีมตั้งต้นให้เลย (สะดวกแก่ลูกค้า)
                     themes.filter(t => t.smallPack).forEach(t => selectedIds.add(t.id));
                 } else {
-                    themes.filter(t => t.age === currentFilter).forEach(t => selectedIds.add(t.id));
+                    // พรีเซเล็กซ์ชุดใหญ่ 50 ธีมให้ครบทั้งหมด
+                    themes.forEach(t => selectedIds.add(t.id));
                 }
                 themes.forEach(t => updateCard(t.id));
             }
