@@ -1158,55 +1158,41 @@
                     submitBtn.disabled = false;
                     submitBtn.textContent = '📥 ส่งรายการ';
                 }
-                const finalLink = data.downloadUrl || data.folderUrl || 'https://www.facebook.com/profile.php?id=61592752235563';
-                
                 if (data.status === 'success') {
-                    // แนบลิงก์ดาวน์โหลดให้กับปุ่มใน Success Modal
-                    const downloadBtn = document.getElementById('btnDownloadFolder');
-                    if (downloadBtn) {
-                        downloadBtn.href = finalLink;
-                        downloadBtn.textContent = '📥 เปิดโฟลเดอร์ดาวน์โหลด (Google Drive)';
-                    }
-                    const shareLinkInput = document.getElementById('shareLinkInput');
-                    if (shareLinkInput) {
-                        shareLinkInput.value = finalLink;
-                    }
-                    document.getElementById('successModal').classList.add('show');
+                    const finalLink = data.downloadUrl || data.folderUrl;
                     
-                    // ล้างแบบฟอร์ม
+                    // Clear selection
                     selectedIds.clear();
                     if (nameInput) nameInput.value = '';
                     themes.forEach(t => updateCard(t.id));
                     updateProgress();
+                    
+                    if (finalLink) {
+                        alert('จัดทำสมุดระบายสีของคุณสำเร็จแล้วค่ะ! ระบบกำลังพาไปดาวน์โหลดไฟล์ที่ Google Drive นะคะ 🙏');
+                        window.location.href = finalLink;
+                    } else {
+                        alert('บันทึกออเดอร์สำเร็จแล้วค่ะ! ระบบกำลังพากลับไปยังห้องแชท Messenger เพื่อรับลิงก์ดาวน์โหลดนะคะ 🙏');
+                        window.location.href = 'https://m.me/1213899101813345';
+                    }
                 } else {
                     alert('เกิดข้อผิดพลาดในการสร้างไฟล์: ' + data.message);
                 }
             })
             .catch(err => {
                 console.error(err);
-                
-                const finalLink = 'https://www.facebook.com/profile.php?id=61592752235563';
                 if (submitBtn) {
                     submitBtn.disabled = false;
                     submitBtn.textContent = '📥 ส่งรายการ';
                 }
                 
-                // สำหรับกรณี CORS Redirect block ให้แสดง Success modal แบบลิงก์ติดต่อเพจเพื่อความสะดวก
-                const downloadBtn = document.getElementById('btnDownloadFolder');
-                if (downloadBtn) {
-                    downloadBtn.href = finalLink;
-                    downloadBtn.textContent = '💬 ทักแชทรับลิงก์โหลดทันที';
-                }
-                const shareLinkInput = document.getElementById('shareLinkInput');
-                if (shareLinkInput) {
-                    shareLinkInput.value = finalLink;
-                }
-                document.getElementById('successModal').classList.add('show');
-                
+                // Clear selection
                 selectedIds.clear();
                 if (nameInput) nameInput.value = '';
                 themes.forEach(t => updateCard(t.id));
                 updateProgress();
+                
+                alert('บันทึกออเดอร์สำเร็จแล้วค่ะ! ระบบกำลังพากลับไปยังห้องแชท Messenger เพื่อรับลิงก์ดาวน์โหลดนะคะ 🙏');
+                window.location.href = 'https://m.me/1213899101813345';
             });
         }
 
