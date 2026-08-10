@@ -893,12 +893,21 @@
 
     <!-- SUCCESS POPUP MODAL -->
     <div class="success-modal" id="successModal">
-        <div class="success-box">
+        <div class="success-box" style="max-width: 450px; width: 90%;">
             <div class="success-icon">🎉</div>
             <div class="success-title">เลือกและจัดส่งสำเร็จ!</div>
-            <div class="success-text">ระบบได้จัดเตรียมไฟล์ดาวน์โหลดของคุณเรียบร้อยแล้วค่ะ<br>กดปุ่มด้านล่างเพื่อดาวน์โหลดไฟล์ของคุณได้เลยนะคะ 👇</div>
-            <a href="" id="btnDownloadFolder" class="success-btn" target="_blank" style="display: inline-block; text-decoration: none; margin-bottom: 12px; background: linear-gradient(135deg, var(--teal), var(--teal-dark)); color: white; width: 100%; box-sizing: border-box;">📥 ดาวน์โหลดไฟล์ของคุณ</a>
-            <button class="success-btn" onclick="closeSuccess()" style="background: #e2e8f0; color: #475569; margin-top: 8px;">ปิดหน้าต่าง</button>
+            <div class="success-text" style="font-size: 13.5px; line-height: 1.6; color: #475569; margin-bottom: 16px;">
+                ระบบได้สร้างโฟลเดอร์ส่วนตัวของคุณเรียบร้อยค่ะ หากปุ่มสีเขียวด้านล่างเปิดไม่ได้ (เนื่องจากตัวเบราว์เซอร์ของ Facebook Messenger บล็อกการเปิดหน้าต่างใหม่) คุณแม่สามารถกดคัดลอกลิงก์ด้านล่างไปวางเปิดในเบราว์เซอร์ปกติอย่าง Google Chrome หรือ Safari แทนได้เลยค่ะ 👇
+            </div>
+            
+            <!-- Link Copy Box -->
+            <div style="display: flex; gap: 8px; margin-bottom: 14px; width: 100%; box-sizing: border-box;">
+                <input type="text" id="shareLinkInput" readonly style="flex: 1; min-width: 0; padding: 10px 12px; border: 1.5px solid #cbd5e1; border-radius: 10px; font-size: 13px; outline: none; background: #f8fafc; font-family: sans-serif; box-sizing: border-box; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                <button onclick="copyToClipboard()" id="btnCopyLink" style="padding: 10px 14px; background: #6366f1; color: white; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; font-size: 13px; font-family: 'Sarabun', sans-serif; flex-shrink: 0; transition: background 0.2s;">📋 คัดลอกลิงก์</button>
+            </div>
+
+            <a href="" id="btnDownloadFolder" class="success-btn" target="_blank" style="display: inline-block; text-decoration: none; margin-bottom: 8px; background: linear-gradient(135deg, var(--teal), var(--teal-dark)); color: white; width: 100%; box-sizing: border-box; font-family: 'Sarabun', sans-serif; text-align: center; line-height: 1.4; padding: 12px;">📥 เปิดโฟลเดอร์ดาวน์โหลด (Google Drive)</a>
+            <button class="success-btn" onclick="closeSuccess()" style="background: #e2e8f0; color: #475569; margin-top: 8px; width: 100%; box-sizing: border-box; font-family: 'Sarabun', sans-serif;">ปิดหน้าต่าง</button>
         </div>
     </div>
 
@@ -1113,6 +1122,12 @@
                 return;
             }
 
+            // Confirm Facebook Name before submission to prevent typos
+            const confirmName = confirm(`โปรดตรวจสอบความถูกต้องของชื่อ Facebook ของคุณ\n\nชื่อของคุณคือ: "${name}" ใช่หรือไม่?\n\n(กรุณาใช้ชื่อเดียวกับที่ทักแชทเพื่อให้ระบบจัดเตรียมไฟล์ได้ถูกต้องและตรงตัวค่ะ)`);
+            if (!confirmName) {
+                return;
+            }
+
             const submitBtn = document.getElementById('btnSubmit');
             if (submitBtn) {
                 submitBtn.disabled = true;
@@ -1143,11 +1158,18 @@
                     submitBtn.disabled = false;
                     submitBtn.textContent = '📥 ส่งรายการ';
                 }
+                const finalLink = data.downloadUrl || data.folderUrl || 'https://www.facebook.com/profile.php?id=61592752235563';
+                
                 if (data.status === 'success') {
                     // แนบลิงก์ดาวน์โหลดให้กับปุ่มใน Success Modal
                     const downloadBtn = document.getElementById('btnDownloadFolder');
                     if (downloadBtn) {
-                        downloadBtn.href = data.downloadUrl || data.folderUrl || 'https://www.facebook.com/profile.php?id=61592752235563';
+                        downloadBtn.href = finalLink;
+                        downloadBtn.textContent = '📥 เปิดโฟลเดอร์ดาวน์โหลด (Google Drive)';
+                    }
+                    const shareLinkInput = document.getElementById('shareLinkInput');
+                    if (shareLinkInput) {
+                        shareLinkInput.value = finalLink;
                     }
                     document.getElementById('successModal').classList.add('show');
                     
@@ -1162,7 +1184,8 @@
             })
             .catch(err => {
                 console.error(err);
-                alert('ส่งข้อมูลสำเร็จแล้วค่ะ แต่เบราว์เซอร์ไม่สามารถอ่านผลตอบกลับได้โดยตรงเพื่อความปลอดภัย\n\nระบบจัดเก็บออเดอร์ในหน้าตารางเรียบร้อยแล้ว แอดมินสามารถส่งลิงก์ดาวน์โหลดให้ในแชทปกติได้เลยนะคะ หรือสามารถทักแชทเพจเพื่อรับลิงก์ดาวน์โหลดได้ค่ะ 🙏');
+                
+                const finalLink = 'https://www.facebook.com/profile.php?id=61592752235563';
                 if (submitBtn) {
                     submitBtn.disabled = false;
                     submitBtn.textContent = '📥 ส่งรายการ';
@@ -1171,8 +1194,12 @@
                 // สำหรับกรณี CORS Redirect block ให้แสดง Success modal แบบลิงก์ติดต่อเพจเพื่อความสะดวก
                 const downloadBtn = document.getElementById('btnDownloadFolder');
                 if (downloadBtn) {
-                    downloadBtn.href = 'https://www.facebook.com/profile.php?id=61592752235563';
+                    downloadBtn.href = finalLink;
                     downloadBtn.textContent = '💬 ทักแชทรับลิงก์โหลดทันที';
+                }
+                const shareLinkInput = document.getElementById('shareLinkInput');
+                if (shareLinkInput) {
+                    shareLinkInput.value = finalLink;
                 }
                 document.getElementById('successModal').classList.add('show');
                 
@@ -1181,6 +1208,37 @@
                 themes.forEach(t => updateCard(t.id));
                 updateProgress();
             });
+        }
+
+        // ====== COPY TO CLIPBOARD ======
+        function copyToClipboard() {
+            const linkInput = document.getElementById('shareLinkInput');
+            if (linkInput && linkInput.value) {
+                linkInput.select();
+                linkInput.setSelectionRange(0, 99999); // สำหรับมือถือ
+                
+                try {
+                    navigator.clipboard.writeText(linkInput.value).then(() => {
+                        const copyBtn = document.getElementById('btnCopyLink');
+                        if (copyBtn) {
+                            copyBtn.textContent = '✓ คัดลอกแล้ว!';
+                            copyBtn.style.background = '#10b981';
+                            setTimeout(() => {
+                                copyBtn.textContent = '📋 คัดลอกลิงก์';
+                                copyBtn.style.background = '#6366f1';
+                            }, 2000);
+                        }
+                        alert('คัดลอกลิงก์ดาวน์โหลดสำเร็จแล้วค่ะ!\n\nคุณแม่สามารถนำลิงก์นี้ไปวางเปิดในแอป Safari หรือ Google Chrome ด้านนอก Facebook Messenger เพื่อดาวน์โหลดไฟล์ได้ทันทีค่ะ 🙏');
+                    }).catch(() => {
+                        // Fallback สำหรับกรณีเบราว์เซอร์ไม่รองรับ Clipboard API
+                        document.execCommand('copy');
+                        alert('คัดลอกลิงก์เรียบร้อยแล้วค่ะ!');
+                    });
+                } catch(e) {
+                    document.execCommand('copy');
+                    alert('คัดลอกลิงก์เรียบร้อยแล้วค่ะ!');
+                }
+            }
         }
 
         function closeSuccess() {
