@@ -1082,7 +1082,7 @@
                     // แนบลิงก์ดาวน์โหลดให้กับปุ่มใน Success Modal
                     const downloadBtn = document.getElementById('btnDownloadFolder');
                     if (downloadBtn) {
-                        downloadBtn.href = data.downloadUrl;
+                        downloadBtn.href = data.downloadUrl || data.folderUrl || 'https://www.facebook.com/profile.php?id=61592752235563';
                     }
                     document.getElementById('successModal').classList.add('show');
                     
