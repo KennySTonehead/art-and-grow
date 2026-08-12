@@ -979,6 +979,7 @@
         let selectedIds = new Set();
         let currentFilter = '3-6';
         let currentType = 'coloring';
+        let uid = '';
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbOrGqK1-QuLO7qDGPBJl4YKg08XpKIiBNHncH6R-R7HM7Y5OTVaHB3ux8yxlRv_4Sq/exec';
 
         // ====== RENDER GRID ======
@@ -1144,7 +1145,8 @@
                 name: name,
                 themes: chosenThemes,
                 items: chosenThemes.join(", "),
-                packageSize: maxSelect
+                packageSize: maxSelect,
+                uid: uid
             };
 
             fetch(SCRIPT_URL, {
@@ -1160,6 +1162,11 @@
                 }
                 if (data.status === 'success') {
                     const finalLink = data.downloadUrl || data.folderUrl;
+                    
+                    // Mark as submitted for this browser to prevent back-button loops (only for 20-themes)
+                    if (maxSelect === 20) {
+                        localStorage.setItem('art_grow_submitted_20', 'true');
+                    }
                     
                     // Clear selection
                     selectedIds.clear();
@@ -1183,6 +1190,11 @@
                 if (submitBtn) {
                     submitBtn.disabled = false;
                     submitBtn.textContent = '📥 ส่งรายการ';
+                }
+                
+                // Mark as submitted for this browser to prevent back-button loops (only for 20-themes)
+                if (maxSelect === 20) {
+                    localStorage.setItem('art_grow_submitted_20', 'true');
                 }
                 
                 // Clear selection
@@ -1418,9 +1430,18 @@
             const preview = params.get('preview');
             const type = params.get('type') || params.get('tab');
 
+            // 0. Parse ManyChat user ID (uid) and check for duplicate submissions
+            uid = params.get('uid') || '';
+            const isPreview = !pkg || pkg === 'preview' || (preview && ['true', '3-6', '6-9', '9+', '20', '50'].includes(preview));
+            if (!isPreview && parseInt(pkg) === 20 && localStorage.getItem('art_grow_submitted_20') === 'true') {
+                alert('คุณแม่ได้ทำการเลือกและส่งรายการ 20 ธีมหลักเรียบร้อยแล้วค่ะ หากต้องการเลือกเพิ่มเติมหรือมีข้อสงสัย รบกวนติดต่อแอดมินทางห้องแชทได้เลยนะคะ 🙏');
+                window.location.href = 'https://m.me/1213899101813345';
+                return;
+            }
+
             // 1. ตรวจสอบโหมดพรีวิว (Preview Mode)
             // หากไม่มีพารามิเตอร์ pkg ระบุสิทธิ์การสั่งซื้อ บังคับเข้าสู่โหมดพรีวิวโดยอัตโนมัติเพื่อความปลอดภัย
-            if (!pkg || pkg === 'preview' || (preview && ['true', '3-6', '6-9', '9+', '20', '50'].includes(preview))) {
+            if (isPreview) {
                 isPreviewMode = true;
                 renderGrid(); // รีเรนเดอร์เพื่อให้วาด ลายน้ำ (Watermark)
             }
